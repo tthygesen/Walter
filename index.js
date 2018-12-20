@@ -4,6 +4,7 @@ const routes = require("./routes/routes");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
+const keys = require("../config/keys");
 
 //bodyparser
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -15,7 +16,7 @@ require("./config/passport")(passport);
 
 const dbConnection = () => {
   mongoose.connect(
-    "mongodb://tobias:tobias0904@ds125574.mlab.com:25574/app",
+    `mongodb://${keys.dbuser}:${keys.dbpassword}@ds125574.mlab.com:25574/app`,
     { useNewUrlParser: true, useCreateIndex: true },
     err => {
       if (err) {
