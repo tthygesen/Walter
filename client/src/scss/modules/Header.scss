@@ -1,0 +1,17 @@
+.main-header {
+  background-color: red;
+  padding: 20px 0;
+  display: flex;
+  justify-content: space-between;
+  ul {
+    display: flex;
+    li {
+      margin: 0 25px;
+      a {
+        color: black;
+        text-decoration: none;
+      }
+      list-style: none;
+    }
+  }
+}
