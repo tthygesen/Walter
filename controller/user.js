@@ -3,6 +3,7 @@ const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 const validation = require("../validation/register");
 const empty = require("is-empty");
+const keys = require("../config/keys");
 
 exports.validateRegister = (req, res, next) => {
   const { errors } = validation(req.body);
@@ -76,8 +77,7 @@ exports.login = async (req, res) => {
       id: user.id,
       email: user.email
     };
-    //TODO: put secretkey in env file
-    const secretkey = "redrum";
+    const secretkey = keys.secretkey;
     jwt.sign(payload, secretkey, { expiresIn: 3600 }, (err, token) => {
       res.json({
         success: true,

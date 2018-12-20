@@ -31,9 +31,10 @@ dbConnection();
 
 app.use("/", routes);
 
-app.listen(5000, err => {
+const port = 5000;
+app.listen(port, err => {
   if (err) {
     console.log(err);
   }
-  console.log("server running");
+  console.log(`server running on port: ${port}`);
 });
