@@ -1,12 +1,16 @@
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
-const validation = require("../validation/register");
+const registerValidation = require("../validation/register");
+const loginValidation = require("../validation/login");
 const empty = require("is-empty");
 const keys = require("../config/keys");
 
+/**************************************/
+/* Register controller and validation */
+/**************************************/
 exports.validateRegister = (req, res, next) => {
-  const { errors } = validation(req.body);
+  const { errors } = registerValidation(req.body);
   if (!empty(errors)) {
     return res.status(400).json(errors);
   }
@@ -18,12 +22,12 @@ exports.register = async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
 
-  //Check if email exsist
+  //Check if email exists
   const user = await User.findOne({ email }).catch(err => {
     console.log(err);
   });
   if (user) {
-    return res.status(400).json({ error: "email already exsists" });
+    return res.status(400).json({ error: "email already exists" });
   } else {
     //make user
     const newUser = new User({
@@ -36,7 +40,7 @@ exports.register = async (req, res) => {
       bcrypt.hash(newUser.password, salt, (err, hash) => {
         if (err) throw err;
 
-        //resplace old password with hashed
+        //replace old password with hashed
         newUser.password = hash;
 
         //save user
@@ -53,14 +57,22 @@ exports.register = async (req, res) => {
   }
 };
 
-//User login
-//POST /login
-//public
+/***********************************/
+/* Login controller and validation */
+/***********************************/
+exports.validateLogin = (req, res, next) => {
+  const { errors } = loginValidation(req.body);
+  if (!empty(errors)) {
+    return res.status(400).json(errors);
+  }
+  next();
+};
+
 exports.login = async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
 
-  //check if user exsists
+  //check if user exists
   const user = await User.findOne({ email }).catch(err => {
     console.log(err);
   });
@@ -85,13 +97,11 @@ exports.login = async (req, res) => {
       });
     });
   } else {
-    return res.status(400).json({ error: "password incorret" });
+    return res.status(400).json({ error: "password incorrect" });
   }
 };
 
-//Current user
-//GET /login
-//Private
+// current user - only for testing
 exports.currentUser = (req, res) => {
   //if success user is put in req
   res.json({
