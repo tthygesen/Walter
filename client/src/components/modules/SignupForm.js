@@ -43,32 +43,33 @@ export default class SignupForm extends Component {
   render() {
     const { error } = this.state;
     return (
-      <form className="login-form" onSubmit={this.onSubmit}>
-        <h3>Sign up</h3>
-        {error && <p>{error.error}</p>}
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={this.state.email}
-          onChange={this.handleChange}
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={this.state.password}
-          onChange={this.handleChange}
-        />
-        <input
-          type="password"
-          name="password2"
-          placeholder="Match your password"
-          value={this.state.password2}
-          onChange={this.handleChange}
-        />
-        <button type="submit">Submit</button>
-      </form>
+      <div className="form-wrapper">
+        <form className="form" onSubmit={this.onSubmit}>
+          {error && <p className="form-error">{error.error}</p>}
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={this.state.email}
+            onChange={this.handleChange}
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={this.state.password}
+            onChange={this.handleChange}
+          />
+          <input
+            type="password"
+            name="password2"
+            placeholder="Match your password"
+            value={this.state.password2}
+            onChange={this.handleChange}
+          />
+          <button type="submit">Submit</button>
+        </form>
+      </div>
     );
   }
 }

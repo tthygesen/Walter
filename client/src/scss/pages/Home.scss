@@ -1,0 +1,62 @@
+@import "../partial/variables";
+.home {
+  display: flex;
+  position: relative;
+  padding-top: calc(25vh - 84px);
+  width: 100%;
+  height: calc(100vh - 84px);
+  background-color: $petrol;
+  .left,
+  .right {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+  }
+  .left {
+    padding-left: 115px;
+    h1 {
+      font-size: 100px;
+      color: $bronze;
+      font-family: "Prata", serif;
+      letter-spacing: 2px;
+    }
+    p {
+      font-size: 20px;
+      color: white;
+    }
+    .cta {
+      width: 250px;
+      text-align: center;
+      padding: 10px;
+      background-color: white;
+      border-radius: 100px;
+      text-decoration: none;
+      color: black;
+      margin-top: 50px;
+    }
+  }
+  .right {
+    align-items: center;
+    .form {
+      display: flex;
+      flex-direction: column;
+      border-left: 1px solid white;
+      height: auto;
+      padding: 0 25px;
+      input {
+        border: none;
+        border-bottom: 1px solid white;
+        background-color: rgba(255, 255, 255, 0);
+        padding: 5px 0;
+        color: white;
+      }
+      button {
+        border-radius: 100px;
+        padding: 5px;
+        border: none;
+        width: 150px;
+        margin-top: 30px;
+      }
+    }
+  }
+}

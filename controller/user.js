@@ -1,5 +1,6 @@
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
+const Profile = require("../models/Profile");
 const jwt = require("jsonwebtoken");
 const registerValidation = require("../validation/register");
 const loginValidation = require("../validation/login");
@@ -29,29 +30,31 @@ exports.register = async (req, res) => {
   if (user) {
     return res.status(400).json({ error: "email already exists" });
   } else {
-    //make user
+    //make user and profile
     const newUser = new User({
       email: email,
       password: password
     });
+    const newProfile = new Profile({});
 
     //hash password
     bcrypt.genSalt(15, (err, salt) => {
-      bcrypt.hash(newUser.password, salt, (err, hash) => {
+      bcrypt.hash(newUser.password, salt, async (err, hash) => {
         if (err) throw err;
 
         //replace old password with hashed
         newUser.password = hash;
 
-        //save user
-        newUser
-          .save()
-          .then(user => {
-            res.json(user);
-          })
-          .catch(err => {
-            console.log(err);
-          });
+        //save user and profile
+        const user = await newUser.save().catch(err => {
+          console.log(err);
+        });
+        await newProfile.save().catch(err => {
+          console.log(err);
+        });
+        if (user) {
+          res.json(user);
+        }
       });
     });
   }

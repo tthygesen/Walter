@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../Provider";
+
 //style
 import "../../scss/modules/Header.scss";
+
+//images
+import logo from "../../assets/images/main-logo.png";
 
 export default class Header extends Component {
   static contextType = Context;
@@ -34,13 +38,12 @@ export default class Header extends Component {
     );
     return (
       <header className="main-header">
-        <ul>
-          <li>
-            <Link to="/">
-              <img src="" alt="" />
-            </Link>
-          </li>
-        </ul>
+        <div>
+          <Link to="/">
+            <img className="header-logo" src={logo} alt="company-logo" />
+          </Link>
+          <input className="header-search" type="search" name="search" placeholder="Search" />
+        </div>
         <ul>
           <li>
             <Link to="/contact">Contact</Link>

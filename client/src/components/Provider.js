@@ -13,7 +13,8 @@ export default class Provider extends Component {
       user: {
         id: "",
         email: ""
-      }
+      },
+      page: undefined
     };
   }
   setCurrentUser = decode => {
@@ -34,13 +35,20 @@ export default class Provider extends Component {
       authenticated: false
     });
   };
+  setPage = currentpage => {
+    console.log("I logged the page");
+    this.setState({
+      page: currentpage
+    });
+  };
   render() {
     return (
       <Context.Provider
         value={{
           state: this.state,
           setCurrentUser: this.setCurrentUser,
-          logUserOut: this.logUserOut
+          logUserOut: this.logUserOut,
+          setPage: this.setPage
         }}
       >
         {this.props.children}

@@ -1,10 +1,36 @@
-.login-form {
+@import "../partial/variables";
+.form-wrapper {
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  width: 300px;
-  margin: 0 10px;
-  input {
-    margin: 5px 0;
-    padding: 2.5px;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 184px);
+  .form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin: 0 10px;
+    .form-error {
+      color: red;
+      width: 100%;
+      text-align: center;
+      margin: 5px 0;
+    }
+    input {
+      margin: 5px 0;
+      padding: 2.5px;
+      border: none;
+      border-bottom: 1px solid black;
+    }
+    button {
+      width: 200px;
+      padding: 10px;
+      background-color: $petrol;
+      border: none;
+      color: white;
+      border-radius: 100px;
+      margin-top: 30px;
+      cursor: pointer;
+    }
   }
 }

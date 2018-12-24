@@ -13,6 +13,10 @@ const profileSchema = new Schema({
     type: String,
     trim: true
   },
+  status: {
+    type: String,
+    trim: true
+  },
   contact: {
     email: {
       type: String,
@@ -38,7 +42,17 @@ const profileSchema = new Schema({
     postalcode: {
       type: String
     }
-  }
+  },
+  skills: [
+    {
+      skill: {
+        type: String
+      },
+      years: {
+        type: Number
+      }
+    }
+  ]
 });
 
 module.exports = Profile = mongoose.model("profiles", profileSchema);

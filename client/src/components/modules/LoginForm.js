@@ -2,13 +2,11 @@ import React, { Component } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { setAuthHeader } from "../../utils/functions";
-import { Context } from "../Provider";
 
 //style
 import "../../scss/modules/Form.scss";
 
 export default class LoginForm extends Component {
-  static contextType = Context;
   constructor(props) {
     super();
     this.state = {
@@ -53,28 +51,30 @@ export default class LoginForm extends Component {
       this.context.setCurrentUser(decode);
     }
   }
+
   render() {
     const { error } = this.state;
     return (
-      <form className="login-form" onSubmit={this.onSubmit}>
-        <h3>Login form</h3>
-        {error && <p>{error.error}</p>}
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={this.state.email}
-          onChange={this.handleChange}
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={this.state.password}
-          onChange={this.handleChange}
-        />
-        <button type="submit">Submit</button>
-      </form>
+      <div className="form-wrapper">
+        <form className="form" onSubmit={this.onSubmit}>
+          {error && <p className="form-error">{error.error}</p>}
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={this.state.email}
+            onChange={this.handleChange}
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={this.state.password}
+            onChange={this.handleChange}
+          />
+          <button type="submit">Submit</button>
+        </form>
+      </div>
     );
   }
 }

@@ -1,17 +1,37 @@
+@import "../partial/variables";
 .main-header {
-  background-color: red;
+  background-color: $petrol;
   padding: 20px 0;
   display: flex;
   justify-content: space-between;
-  ul {
+  align-items: center;
+  ul,
+  div {
     display: flex;
     li {
       margin: 0 25px;
       a {
-        color: black;
+        color: white;
         text-decoration: none;
       }
       list-style: none;
+    }
+  }
+  div {
+    align-items: center;
+    .header-logo,
+    .header-search {
+      margin: 0 25px;
+    }
+    .header-logo {
+      width: 40px;
+    }
+    .header-search {
+      width: 250px;
+      height: 30px;
+      border-radius: 100px;
+      border: none;
+      padding: 0 20px;
     }
   }
 }
