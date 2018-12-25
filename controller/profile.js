@@ -47,9 +47,9 @@ exports.createProfile = async (req, res) => {
     console.log(err);
   });
   if (profile) {
-    //update
-    const updatedProfile = await Profile.findByIdAndUpdate(
-      { user: req.user.id },
+    const id = req.user.id;
+    const updatedProfile = await Profile.findOneAndUpdate(
+      { user: id },
       { $set: profileFields },
       { new: true }
     ).catch(err => {
@@ -62,5 +62,27 @@ exports.createProfile = async (req, res) => {
       res.status(400).json({ error: err });
     });
     if (newProfile) res.json(newProfile);
+  }
+};
+
+exports.createWorkExperience = async (req, res) => {
+  const WorkExperience = {};
+  if (req.body.position) WorkExperience.position = req.body.position;
+  if (req.body.company) WorkExperience.company = req.body.company;
+  //start year and month
+  WorkExperience.start = {};
+  if (req.body.year) WorkExperience.start.year = req.body.year;
+  if (req.body.month) WorkExperience.start.month = req.body.month;
+  //end year and month
+  WorkExperience.end = {};
+  if (req.body.year) WorkExperience.end.year = req.body.year;
+  if (req.body.month) WorkExperience.end.month = req.body.month;
+
+  const profile = await new Profile.findOne({ user: req.user.id }).catch(err => {
+    console.log(err);
+  });
+  if(profile){
+    //create / update work experience
+    //const we = await new profile.
   }
 };
