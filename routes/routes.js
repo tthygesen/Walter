@@ -25,11 +25,38 @@ router.post(
   passport.authenticate("jwt", { session: false }),
   profileController.createProfile
 );
-
-router.get(
-  "/api/current",
+//Skills
+router.post(
+  "/api/profile/skill",
   passport.authenticate("jwt", { session: false }),
-  userController.currentUser
+  profileController.createSkill
+);
+router.delete(
+  "/api/profile/skill/:skill_id",
+  passport.authenticate("jwt", { session: false }),
+  profileController.deleteSkill
+);
+// Experience
+router.post(
+  "/api/profile/experience",
+  passport.authenticate("jwt", { session: false }),
+  profileController.createWorkExperience
+);
+router.delete(
+  "/api/profile/experience/:exp_id",
+  passport.authenticate("jwt", { session: false }),
+  profileController.deleteExperience
+);
+// Education
+router.post(
+  "/api/profile/education",
+  passport.authenticate("jwt", { session: false }),
+  profileController.createEducation
+);
+router.delete(
+  "/api/profile/education/:edu_id",
+  passport.authenticate("jwt", { session: false }),
+  profileController.deleteEducation
 );
 
 router.post("/validate", userController.validateRegister);

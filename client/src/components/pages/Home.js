@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import jwt_decode from "jwt-decode";
+import { setAuthHeader } from "../../utils/functions";
 import { Context } from "../Provider";
 //Style
 import "../../scss/pages/Home.scss";
@@ -12,14 +15,38 @@ export default class Home extends Component {
       email: "",
       password: ""
     };
-    this.login = this.login.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
-  login = () => {
-    const name = this.state.email;
-    const password = this.state.password;
-    console.log(name, password);
-  };
+
+  async onSubmit(event) {
+    event.preventDefault();
+    const newUser = {
+      email: this.state.email,
+      password: this.state.password
+    };
+    const res = await axios.post("api/login", newUser).catch(err => {
+      const loginError = err.response.data;
+      this.setState({
+        error: loginError
+      });
+    });
+    if (res) {
+      //get token from results
+      const { token } = res.data;
+
+      //save to local storage
+      localStorage.setItem("jwt", token);
+
+      //Set header with token
+      setAuthHeader(token);
+      //decode token
+      const decode = jwt_decode(token);
+      //set user
+      this.context.setCurrentUser(decode);
+    }
+  }
+
   handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value
@@ -42,7 +69,7 @@ export default class Home extends Component {
           </Link>
         </div>
         <div className="right">
-          <form className="form" onSubmit={this.login}>
+          <form className="form" onSubmit={this.onSubmit}>
             <input
               type="email"
               value={this.state.email}

@@ -65,24 +65,131 @@ exports.createProfile = async (req, res) => {
   }
 };
 
+//Create work experience
 exports.createWorkExperience = async (req, res) => {
-  const WorkExperience = {};
-  if (req.body.position) WorkExperience.position = req.body.position;
-  if (req.body.company) WorkExperience.company = req.body.company;
-  //start year and month
-  WorkExperience.start = {};
-  if (req.body.year) WorkExperience.start.year = req.body.year;
-  if (req.body.month) WorkExperience.start.month = req.body.month;
-  //end year and month
-  WorkExperience.end = {};
-  if (req.body.year) WorkExperience.end.year = req.body.year;
-  if (req.body.month) WorkExperience.end.month = req.body.month;
-
-  const profile = await new Profile.findOne({ user: req.user.id }).catch(err => {
+  const profile = await Profile.findOne({ user: req.user.id }).catch(err => {
     console.log(err);
   });
-  if(profile){
-    //create / update work experience
-    //const we = await new profile.
+  if (profile) {
+    const newExperience = {
+      position: req.body.position,
+      company: req.body.company,
+      start: {
+        month: req.body.startmonth,
+        year: req.body.startyear
+      },
+      end: {
+        month: req.body.endmonth,
+        year: req.body.endyear
+      },
+      current: req.body.current
+    };
+    profile.workexperience.unshift(newExperience);
+    const theProfile = await profile.save().catch(err => {
+      console.log(err);
+    });
+    if (theProfile) res.json(theProfile);
+  }
+};
+
+//Create an education
+exports.createEducation = async (req, res) => {
+  const profile = await Profile.findOne({ user: req.user.id }).catch(err => {
+    console.log(err);
+  });
+  if (profile) {
+    const newEducation = {
+      school: req.body.school,
+      country: req.body.country,
+      start: {
+        month: req.body.startmonth,
+        year: req.body.startyear
+      },
+      end: {
+        month: req.body.endmonth,
+        year: req.body.endyear
+      },
+      current: req.body.current
+    };
+    profile.educations.unshift(newEducation);
+    const theProfile = await profile.save().catch(err => {
+      console.log(err);
+    });
+    if (theProfile) res.json(theProfile);
+  }
+};
+
+//Create an education
+exports.createSkill = async (req, res) => {
+  const profile = await Profile.findOne({ user: req.user.id }).catch(err => {
+    console.log(err);
+  });
+  if (profile) {
+    const newSkill = {
+      skill: req.body.skill,
+      years: req.body.years
+    };
+    profile.skills.unshift(newSkill);
+    const theProfile = await profile.save().catch(err => {
+      console.log(err);
+    });
+    if (theProfile) res.json(theProfile);
+  }
+};
+
+//Delete a skill
+exports.deleteSkill = async (req, res) => {
+  const profile = await Profile.findOne({ user: req.user.id }).catch(err => {
+    console.log(err);
+  });
+  if (profile) {
+    const experience = await profile.skills
+      .map(item => item.id)
+      .indexOf(req.params.skill_id);
+
+    profile.skills.splice(experience, 1);
+
+    const theProfile = await profile.save().catch(err => {
+      console.log(err);
+    });
+    if (theProfile) res.json(theProfile);
+  }
+};
+
+//Delete an education
+exports.deleteEducation = async (req, res) => {
+  const profile = await Profile.findOne({ user: req.user.id }).catch(err => {
+    console.log(err);
+  });
+  if (profile) {
+    const education = await profile.educations
+      .map(item => item.id)
+      .indexOf(req.params.edu_id);
+
+    profile.educations.splice(education, 1);
+
+    const theProfile = await profile.save().catch(err => {
+      console.log(err);
+    });
+    if (theProfile) res.json(theProfile);
+  }
+};
+
+//Delete an experience
+exports.deleteExperience = async (req, res) => {
+  const profile = await Profile.findOne({ user: req.user.id }).catch(err => {
+    console.log(err);
+  });
+  if (profile) {
+    const experience = await profile.workexperience
+      .map(item => item.id)
+      .indexOf(req.params.edu_id);
+
+    profile.workexperience.splice(experience, 1);
+
+    const theProfile = await profile.save().catch(err => {
+      console.log(err);
+    });
+    if (theProfile) res.json(theProfile);
   }
 };

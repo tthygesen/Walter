@@ -40,6 +40,17 @@ export default class Provider extends Component {
       page: currentpage
     });
   };
+  checkAuth = () => {
+    const auth = localStorage.getItem("jwt");
+    if (auth) {
+      this.setState({
+        authenticated: true
+      });
+    }
+  };
+  componentWillMount() {
+    this.checkAuth();
+  }
   render() {
     return (
       <Context.Provider

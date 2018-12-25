@@ -77,8 +77,8 @@ const profileSchema = new Schema({
       position: {
         type: String
       },
-      companyname: {
-        type: Number
+      company: {
+        type: String
       },
       start: {
         month: {
@@ -95,16 +95,19 @@ const profileSchema = new Schema({
         year: {
           type: String
         }
+      },
+      current: {
+        type: Boolean
       }
     }
   ],
-  lifeexperience: [
+  educations: [
     {
-      position: {
+      school: {
         type: String
       },
-      companyname: {
-        type: Number
+      country: {
+        type: String
       },
       start: {
         month: {
@@ -121,6 +124,9 @@ const profileSchema = new Schema({
         year: {
           type: String
         }
+      },
+      current: {
+        type: Boolean
       }
     }
   ]

@@ -46,8 +46,10 @@ export default class LoginForm extends Component {
 
       //Set header with token
       setAuthHeader(token);
+
       //decode token
       const decode = jwt_decode(token);
+
       //set user
       this.context.setCurrentUser(decode);
     }
