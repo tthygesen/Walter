@@ -3,7 +3,8 @@ const Schema = mongoose.Schema;
 
 const profileSchema = new Schema({
   user: {
-    type: Schema.Types.ObjectId
+    type: Schema.Types.ObjectId,
+    ref: "users"
   },
   name: {
     type: String,
@@ -17,6 +18,12 @@ const profileSchema = new Schema({
     type: String,
     trim: true
   },
+  picture: {
+    type: String
+  },
+  bio: {
+    type: String
+  },
   contact: {
     email: {
       type: String,
@@ -25,7 +32,10 @@ const profileSchema = new Schema({
     },
     phone: {
       type: String,
-      lowercase: true,
+      trim: true
+    },
+    website: {
+      type: String,
       trim: true
     }
   },
@@ -35,11 +45,20 @@ const profileSchema = new Schema({
     },
     city: {
       type: String
-    },
-    address: {
+    }
+  },
+  socials: {
+    facebook: {
       type: String
     },
-    postalcode: {
+    instagram: {
+      type: String
+    },
+    twitter: {
+      type: String
+    },
+
+    linkedin: {
       type: String
     }
   },
@@ -50,6 +69,58 @@ const profileSchema = new Schema({
       },
       years: {
         type: Number
+      }
+    }
+  ],
+  workexperience: [
+    {
+      position: {
+        type: String
+      },
+      companyname: {
+        type: Number
+      },
+      start: {
+        month: {
+          type: String
+        },
+        year: {
+          type: String
+        }
+      },
+      end: {
+        month: {
+          type: String
+        },
+        year: {
+          type: String
+        }
+      }
+    }
+  ],
+  lifeexperience: [
+    {
+      position: {
+        type: String
+      },
+      companyname: {
+        type: Number
+      },
+      start: {
+        month: {
+          type: String
+        },
+        year: {
+          type: String
+        }
+      },
+      end: {
+        month: {
+          type: String
+        },
+        year: {
+          type: String
+        }
       }
     }
   ]

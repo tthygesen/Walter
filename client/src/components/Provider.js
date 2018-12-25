@@ -36,7 +36,6 @@ export default class Provider extends Component {
     });
   };
   setPage = currentpage => {
-    console.log("I logged the page");
     this.setState({
       page: currentpage
     });

@@ -2,11 +2,12 @@ import React, { Component } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { setAuthHeader } from "../../utils/functions";
-
+import { Context } from "../Provider";
 //style
 import "../../scss/modules/Form.scss";
 
 export default class LoginForm extends Component {
+  static contextType = Context;
   constructor(props) {
     super();
     this.state = {

@@ -49,9 +49,9 @@ exports.register = async (req, res) => {
         const user = await newUser.save().catch(err => {
           console.log(err);
         });
-        await newProfile.save().catch(err => {
+        /* await newProfile.save().catch(err => {
           console.log(err);
-        });
+        }); */
         if (user) {
           res.json(user);
         }
