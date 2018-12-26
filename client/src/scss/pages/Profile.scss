@@ -4,36 +4,46 @@
   min-width: 300px;
   margin: 0 auto;
   .business-card {
-    display: flex;
     border-bottom: 1px solid black;
-    padding-bottom: 50px;
-    .basic-info {
-      width: 300px;
-      margin-left: 100px;
-      li:nth-child(3) {
-        margin-top: 50px;
+    padding-bottom: 25px;
+    .card-info {
+      display: flex;
+      .basic-info {
+        width: 300px;
+        margin-left: 100px;
+        li:nth-child(3) {
+          margin-top: 50px;
+        }
       }
-    }
-    .profile-picture {
-      display: flex;
-      border-radius: 100%;
-      object-fit: cover;
-      width: 250px;
-      height: 250px;
-    }
-    .social-media {
-      display: flex;
-      width: 100%;
-      justify-content: flex-end;
-      .sm-icon {
-        margin: 0 10px;
-        a {
-          img {
-            height: 25px;
-            width: 25px;
-            object-fit: cover;
+      .profile-picture {
+        display: flex;
+        border-radius: 100%;
+        object-fit: cover;
+        max-width: 250px;
+        min-width: 250px;
+        max-height: 250px;
+        min-height: 250px;
+      }
+      .social-media {
+        display: flex;
+        width: 100%;
+        justify-content: flex-end;
+        .sm-icon {
+          margin: 0 10px;
+          a {
+            img {
+              height: 25px;
+              width: 25px;
+              object-fit: cover;
+            }
           }
         }
+      }
+    }
+    .updateProfile {
+      img {
+        width: 20px;
+        object-fit: cover;
       }
     }
   }
@@ -48,6 +58,15 @@
         text-align: justify;
       }
     }
+    .categori-header {
+      display: flex;
+      justify-content: space-between;
+      img {
+        width: 15px;
+        height: 15px;
+        object-fit: cover;
+      }
+    }
     .experience,
     .education,
     .skill {
@@ -57,6 +76,16 @@
       padding: 15px 0;
       li {
         line-height: 1.5;
+      }
+      .last {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        img {
+          width: 15px;
+          height: 15px;
+          cursor: pointer;
+        }
       }
     }
   }

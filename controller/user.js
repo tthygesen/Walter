@@ -93,7 +93,7 @@ exports.login = async (req, res) => {
       email: user.email
     };
     const secretkey = keys.secretkey;
-    jwt.sign(payload, secretkey, { expiresIn: 3600 }, (err, token) => {
+    jwt.sign(payload, secretkey, { expiresIn: 36000 }, (err, token) => {
       res.json({
         success: true,
         token: "Bearer " + token

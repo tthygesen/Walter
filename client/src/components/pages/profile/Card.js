@@ -1,53 +1,86 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
+//import _ from "lodash";
 
 //Social media icons
-import facebook from "../../../assets/images/sm-icons/facebook.svg";
+/* import facebook from "../../../assets/images/sm-icons/facebook.svg";
 import instagram from "../../../assets/images/sm-icons/instagram.svg";
 import twitter from "../../../assets/images/sm-icons/twitter.svg";
-import linkedin from "../../../assets/images/sm-icons/linkedin.svg";
+import linkedin from "../../../assets/images/sm-icons/linkedin.svg"; */
+import options from "../../../assets/images/options.svg";
 
 //dummy profile picture
 import pp from "../../../assets/images/pp.jpg";
 
 export default class Card extends Component {
+  constructor(...props) {
+    super(...props);
+    this.state = {};
+  }
+
+  async componentWillReceiveProps(nextProps) {
+    const user = nextProps;
+    console.log(user);
+    (await user.name) ? console.log(user.name) : (user.name = "");
+    (await user.lastname) ? console.log(user.lastname) : (user.lastname = "");
+    (await user.status) ? console.log(user.status) : (user.status = "");
+    (await user.living) ? (user.living = {}) : console.log();
+    await this.setState(nextProps);
+    console.log(this.state);
+  }
+
   render() {
     return (
       <article className="business-card">
-        <img src={pp} className="profile-picture" alt="" />
-        <ul className="basic-info">
-          <li>
-            <h1>name</h1>
-          </li>
-          <li>
-            <h4>status</h4>
-          </li>
-          <li>email</li>
-          <li>phone</li>
-          <li>city</li>
-          <li>website</li>
-        </ul>
-        <ul className="social-media">
-          <li className="facebook sm-icon">
-            <a href="https://www.google.com/">
+        <div className="card-info">
+          <img src={pp} className="profile-picture" alt="" />
+          <ul className="basic-info">
+            <li>
+              {this.props.name && (
+                <h1>
+                  {this.props.name} {this.props.lastname}
+                </h1>
+              )}
+            </li>
+            <li>{this.props.status && <h4>{this.props.status}</h4>}</li>
+            {this.props.contact.email && <li>{this.props.contact.email}</li>}
+            {this.props.contact.phone && <li>{this.props.contact.phone}</li>}
+            {/*this.props.living.country && <li>{this.props.living.country}</li>*/}
+            {/*this.props.living.city && <li>{this.props.living.city}</li> */}
+            {/*
+              <li>
+              <a href={this.props.contact.website}>Website</a>
+              </li>
+              </ul>
+              <ul className="social-media">
+              <li className="facebook sm-icon">
+              <a href="https://www.google.com/">
               <img src={facebook} alt="" />
-            </a>
-          </li>
-          <li className="twitter sm-icon">
-            <a href="https://www.google.com/">
+              </a>
+              </li>
+              <li className="twitter sm-icon">
+              <a href="https://www.google.com/">
               <img src={twitter} alt="" />
-            </a>
-          </li>
-          <li className="linkedin sm-icon">
-            <a href="https://www.google.com/">
+              </a>
+              </li>
+              <li className="linkedin sm-icon">
+              <a href="https://www.google.com/">
               <img src={linkedin} alt="" />
-            </a>
-          </li>
-          <li className="instagram sm-icon">
-            <a href="https://www.google.com/">
+              </a>
+              </li>
+              <li className="instagram sm-icon">
+              <a href="https://www.google.com/">
               <img src={instagram} alt="" />
-            </a>
-          </li>
-        </ul>
+              </a>
+              </li>
+            */}
+          </ul>
+        </div>
+        <div className="updateProfile">
+          <Link to="/profile/update">
+            <img src={options} alt="" />
+          </Link>
+        </div>
       </article>
     );
   }

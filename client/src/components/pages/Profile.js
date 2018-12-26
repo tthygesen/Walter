@@ -7,11 +7,26 @@ import "../../scss/pages/Profile.scss";
 
 //Componets
 import Card from "./profile/Card";
+import Experience from "./profile/Experience";
+import Education from "./profile/Education";
+import Skill from "./profile/Skill";
+import Bio from "./profile/Bio";
 
 export default class Profile extends Component {
   constructor(props) {
     super();
-    this.state = {};
+    this.state = {
+      name: "",
+      lastname: "",
+      status: "",
+      bio: "",
+      socials: {},
+      contact: [],
+      living: {},
+      skills: [],
+      experience: [],
+      education: []
+    };
     this.getUserProfile = this.getUserProfile.bind(this);
   }
   getUserProfile = async () => {
@@ -19,7 +34,20 @@ export default class Profile extends Component {
       console.log(err);
     });
     if (res) {
-      console.log(res.data);
+      //console.log(res.data);
+      const user = res.data;
+      this.setState({
+        name: user.name,
+        lastname: user.lastname,
+        status: user.status,
+        bio: user.bio,
+        contact: user.contact,
+        socials: user.socials,
+        living: user.living,
+        skills: user.skills,
+        experience: user.workexperience,
+        education: user.education
+      });
     }
   };
   async componentDidMount() {
@@ -30,61 +58,19 @@ export default class Profile extends Component {
   render() {
     return (
       <section className="main-profile">
-        <Card />
+        <Card
+          name={this.state.name}
+          lastname={this.state.lastname}
+          status={this.state.status}
+          contact={this.state.contact}
+          living={this.state.living}
+          socials={this.state.socials}
+        />
         <article className="info">
-          <div className="biography">
-            <h4>Bio</h4>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
-          </div>
-          <div className="experiences">
-            <h4>Experience</h4>
-            <div className="experience">
-              <ul>
-                <li className="company">Irma</li>
-                <li className="position">Sales assistance</li>
-                <li className="perioed">january 2014 - febuar 2015</li>
-              </ul>
-            </div>
-          </div>
-          <div className="educations">
-            <h4>Educations</h4>
-            <div className="education">
-              <ul>
-                <li className="company">high school</li>
-                <li className="position">Denmark </li>
-                <li className="perioed">january 2014 - febuar 2015</li>
-              </ul>
-            </div>
-          </div>
-          <div className="skills">
-            <h4>Skills</h4>
-            <div className="skill">
-              <ul>
-                <li className="theSkill">HTML</li>
-                <li className="years">3 years</li>
-              </ul>
-            </div>
-            <div className="skill">
-              <ul>
-                <li className="theSkill">css</li>
-                <li className="years">3 years</li>
-              </ul>
-            </div>
-            <div className="skill">
-              <ul>
-                <li className="theSkill">javascript</li>
-                <li className="years">2 years</li>
-              </ul>
-            </div>
-          </div>
+          <Bio text={this.state.bio} />
+          <Experience />
+          <Education />
+          <Skill />
         </article>
       </section>
     );
