@@ -193,3 +193,9 @@ exports.deleteExperience = async (req, res) => {
     if (theProfile) res.json(theProfile);
   }
 };
+
+exports.searchProfiles = async (req, res) => {
+  const search = req.body.search;
+  res.send(search);
+  //const result = Profile.find();
+};

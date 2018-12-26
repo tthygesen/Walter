@@ -1,0 +1,59 @@
+@import "../partial/variables";
+.main-search {
+  .search-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 250px;
+    background: $petrol;
+    h1 {
+      font-size: 64px;
+      font-family: $Prata;
+      color: $bronze;
+      letter-spacing: 2.5px;
+      font-weight: 500;
+    }
+    input {
+      width: 700px;
+      min-width: 250px;
+      padding: 10px;
+      border: none;
+      border-radius: 36px;
+    }
+  }
+
+  .search-results {
+    padding: 50px;
+    .card {
+      border-radius: 5px;
+      display: flex;
+      width: 350px;
+      height: 150px;
+      background-color: $petrol;
+      cursor: pointer;
+      img {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+      }
+      .card-info {
+        width: 100%;
+        padding: 10px;
+        p,
+        h3 {
+          line-height: 1.5;
+          letter-spacing: 0.5px;
+          color: white;
+          font-weight: 200;
+        }
+        p {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}

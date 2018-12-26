@@ -16,6 +16,7 @@ import Login from "./components/pages/Login";
 import Profile from "./components/pages/Profile";
 import Update from "./components/pages/Update";
 import Experience from "./components/pages/Experience";
+import Search from "./components/pages/Search";
 
 class App extends Component {
   render() {
@@ -32,6 +33,7 @@ class App extends Component {
             <Route exact path="/profile" component={Profile} />
             <Route exact path="/profile/update" component={Update} />
             <Route exact path="/profile/experience" component={Experience} />
+            <Route exact path="/search" component={Search} />
             <Footer />
           </div>
         </Router>

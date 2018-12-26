@@ -59,6 +59,7 @@ router.delete(
   profileController.deleteEducation
 );
 
-router.post("/validate", userController.validateRegister);
+//Search
+router.get("/api/search", profileController.searchProfiles);
 
 module.exports = router;
