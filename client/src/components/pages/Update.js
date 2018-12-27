@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Context } from "../Provider";
+import { setAuthHeader } from "../../utils/functions";
+import _ from "lodash";
 
 //Style
 import "../../scss/pages/update.scss";
@@ -10,24 +12,11 @@ import PageHeader from "../modules/PageHeader";
 
 export default class Update extends Component {
   static contextType = Context;
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: "",
-      lastname: "",
-      status: "",
-      email: "",
-      phone: "",
-      country: "",
-      city: "",
-      website: "",
-      facebook: "",
-      twitter: "",
-      linkedin: "",
-      instagram: "",
-      bio: ""
-    };
+  constructor(...props) {
+    super(...props);
+    this.state = {};
     this.submit = this.submit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
   handleChange = event => {
     this.setState({
@@ -59,7 +48,37 @@ export default class Update extends Component {
   deleteAccount = () => {
     console.log("delete account");
   };
-  componentWillMount() {
+
+  getUserData = async () => {
+    const res = await axios.get("/api/profile").catch(err => {
+      console.log(err);
+    });
+
+    if (res) {
+      res.data.socials = _.isEmpty(res.data.socials) ? {} : res.data.socials;
+      res.data.living = _.isEmpty(res.data.living) ? {} : res.data.living;
+      res.data.contact = _.isEmpty(res.data.contact) ? {} : res.data.contact;
+      this.setState({
+        name: res.data.name,
+        lastname: res.data.lastname,
+        status: res.data.status,
+        email: res.data.contact.email,
+        phone: res.data.contact.phone,
+        country: res.data.living.country,
+        city: res.data.living.city,
+        website: res.data.contact.website,
+        facebook: res.data.socials.facebook,
+        twitter: res.data.socials.twitter,
+        linkedin: res.data.socials.linkedin,
+        instagram: res.data.socials.instagram,
+        bio: res.data.bio
+      });
+    }
+  };
+  async componentWillMount() {
+    const token = localStorage.getItem("jwt");
+    await setAuthHeader(token);
+    this.getUserData();
     const page = "Profile information";
     this.context.setPage(page);
   }
@@ -80,13 +99,14 @@ export default class Update extends Component {
              value={this.state.name}
              name="profilepicture"
              />
-           */}
+            */}
             <input
               type="text"
               name="name"
               placeholder="First name"
               onChange={this.handleChange}
               value={this.state.name}
+              key={this.state.name}
             />
             <input
               type="text"

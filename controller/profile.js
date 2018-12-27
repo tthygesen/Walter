@@ -143,9 +143,7 @@ exports.deleteSkill = async (req, res) => {
     console.log(err);
   });
   if (profile) {
-    const experience = await profile.skills
-      .map(item => item.id)
-      .indexOf(req.params.skill_id);
+    const experience = await profile.skills.map(item => item.id).indexOf(req.params.skill_id);
 
     profile.skills.splice(experience, 1);
 
@@ -162,9 +160,7 @@ exports.deleteEducation = async (req, res) => {
     console.log(err);
   });
   if (profile) {
-    const education = await profile.educations
-      .map(item => item.id)
-      .indexOf(req.params.edu_id);
+    const education = await profile.educations.map(item => item.id).indexOf(req.params.edu_id);
 
     profile.educations.splice(education, 1);
 
@@ -181,9 +177,7 @@ exports.deleteExperience = async (req, res) => {
     console.log(err);
   });
   if (profile) {
-    const experience = await profile.workexperience
-      .map(item => item.id)
-      .indexOf(req.params.edu_id);
+    const experience = await profile.workexperience.map(item => item.id).indexOf(req.params.edu_id);
 
     profile.workexperience.splice(experience, 1);
 

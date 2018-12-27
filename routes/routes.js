@@ -7,11 +7,7 @@ const profileController = require("../controller/profile");
 
 const api = "api";
 //USER ROUTS
-router.post(
-  "/api/register",
-  userController.validateRegister,
-  userController.register
-);
+router.post("/api/register", userController.validateRegister, userController.register);
 router.post("/api/login", userController.validateLogin, userController.login);
 
 //PROFILE ROUTS

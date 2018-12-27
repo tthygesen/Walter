@@ -1,0 +1,58 @@
+@import "../../partial/variables";
+.main-add {
+  .add-header {
+    height: 100px;
+    width: 100%;
+    background: $petrol;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    h1 {
+      font-size: 36px;
+      font-family: $Prata;
+      font-weight: 100;
+      color: $bronze;
+    }
+  }
+  .form-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    form {
+      display: flex;
+      flex-direction: column;
+      input {
+        padding: 5px 0;
+        border: none;
+        border-bottom: 1px solid black;
+        margin-bottom: 10px;
+        width: 400px;
+      }
+      label {
+        margin-top: 10px;
+        font-size: 14px;
+      }
+      button {
+        margin-top: 20px;
+        padding: 7.5px;
+        background: $petrol;
+        border: none;
+        border-radius: 36px;
+        color: white;
+        transition: 0.3s ease-in-out all;
+        &:hover {
+          transform: translateY(-2.5px);
+          background: $petrol-hover;
+        }
+      }
+      .start {
+        display: flex;
+        input {
+          width: calc(200px - 10px);
+          margin-right: 20px;
+        }
+      }
+    }
+  }
+}

@@ -16,7 +16,7 @@ export default class Experience extends Component {
           <ul>
             <li className="company">Irma</li>
             <li className="position">Sales assistance</li>
-            <li className="perioed last">
+            <li className="period last">
               <p>january 2014 - febuar 2015</p>
               <DeleteBtn />
             </li>

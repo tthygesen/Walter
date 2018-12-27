@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.scss";
 
 //Provider
@@ -15,7 +15,7 @@ import Signup from "./components/pages/Signup";
 import Login from "./components/pages/Login";
 import Profile from "./components/pages/Profile";
 import Update from "./components/pages/Update";
-import Experience from "./components/pages/Experience";
+import AddExperience from "./components/pages/profile/AddExperience";
 import Search from "./components/pages/Search";
 
 class App extends Component {
@@ -25,15 +25,17 @@ class App extends Component {
         <Router>
           <div className="App">
             <Header />
-            <Route exact path="/" component={Home} />
-            <Route exact path="/contact" component={Contact} />
-            <Route exact path="/about" component={About} />
-            <Route exact path="/register" component={Signup} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/profile" component={Profile} />
-            <Route exact path="/profile/update" component={Update} />
-            <Route exact path="/profile/experience" component={Experience} />
-            <Route exact path="/search" component={Search} />
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/contact" component={Contact} />
+              <Route exact path="/about" component={About} />
+              <Route exact path="/register" component={Signup} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/profile" component={Profile} />
+              <Route exact path="/profile/update" component={Update} />
+              <Route exact path="/profile/experience" component={AddExperience} />
+              <Route exact path="/search" component={Search} />
+            </Switch>
             <Footer />
           </div>
         </Router>

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import axios from "axios";
 import { setAuthHeader } from "../../utils/functions";
+import axios from "axios";
+import _ from "lodash";
 
 //style
 import "../../scss/pages/Profile.scss";
@@ -14,14 +15,14 @@ import Bio from "./profile/Bio";
 
 export default class Profile extends Component {
   constructor(props) {
-    super();
+    super(props);
     this.state = {
       name: "",
       lastname: "",
       status: "",
       bio: "",
       socials: {},
-      contact: [],
+      contact: {},
       living: {},
       skills: [],
       experience: [],
@@ -34,21 +35,25 @@ export default class Profile extends Component {
       console.log(err);
     });
     if (res) {
-      //console.log(res.data);
-      const user = res.data;
+      const profile = res.data;
+      profile.socials = _.isEmpty(profile.socials) ? {} : profile.socials;
+      profile.living = _.isEmpty(profile.living) ? {} : profile.living;
+      profile.contact = _.isEmpty(profile.contact) ? {} : profile.contact;
+
       this.setState({
-        name: user.name,
-        lastname: user.lastname,
-        status: user.status,
-        bio: user.bio,
-        contact: user.contact,
-        socials: user.socials,
-        living: user.living,
-        skills: user.skills,
-        experience: user.workexperience,
-        education: user.education
+        name: profile.name,
+        lastname: profile.lastname,
+        status: profile.status,
+        bio: profile.bio,
+        contact: profile.contact,
+        socials: profile.socials,
+        living: profile.living,
+        skills: profile.skills,
+        experience: profile.workexperience,
+        education: profile.education
       });
     }
+    console.log(this.state);
   };
   async componentDidMount() {
     const token = localStorage.getItem("jwt");
@@ -57,22 +62,24 @@ export default class Profile extends Component {
   }
   render() {
     return (
-      <section className="main-profile">
-        <Card
-          name={this.state.name}
-          lastname={this.state.lastname}
-          status={this.state.status}
-          contact={this.state.contact}
-          living={this.state.living}
-          socials={this.state.socials}
-        />
-        <article className="info">
-          <Bio text={this.state.bio} />
-          <Experience />
-          <Education />
-          <Skill />
-        </article>
-      </section>
+      <React.Fragment>
+        <section className="main-profile">
+          <Card
+            name={this.state.name}
+            lastname={this.state.lastname}
+            status={this.state.status}
+            contact={this.state.contact}
+            living={this.state.living}
+            socials={this.state.socials}
+          />
+          <article className="info">
+            <Bio text={this.state.bio} />
+            <Experience />
+            <Education />
+            <Skill />
+          </article>
+        </section>
+      </React.Fragment>
     );
   }
 }

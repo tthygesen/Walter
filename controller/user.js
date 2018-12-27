@@ -71,7 +71,7 @@ exports.validateLogin = (req, res, next) => {
   next();
 };
 
-exports.login = async (req, res) => {
+exports.login = async (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
 
@@ -102,13 +102,5 @@ exports.login = async (req, res) => {
   } else {
     return res.status(400).json({ error: "password incorrect" });
   }
-};
-
-// current user - only for testing
-exports.currentUser = (req, res) => {
-  //if success user is put in req
-  res.json({
-    id: req.user.id,
-    email: req.user.email
-  });
+  next();
 };

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import PageHeader from "../modules/PageHeader";
+//import PageHeader from "../modules/PageHeader";
 import { Context } from "../Provider";
-import axios from "axios";
+//import axios from "axios";
 
 //Style
 import "../../scss/pages/search.scss";
@@ -24,11 +24,7 @@ export default class Search extends Component {
       <section className="main-search">
         <article className="search-header">
           <h1>Search</h1>
-          <input
-            type="search"
-            name="search"
-            placeholder="Search for your new candidate"
-          />
+          <input type="search" name="search" placeholder="Search for your new candidate" />
         </article>
         <article className="search-results">
           <Card />

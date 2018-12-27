@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-//import _ from "lodash";
 
 //Social media icons
-/* import facebook from "../../../assets/images/sm-icons/facebook.svg";
+import facebook from "../../../assets/images/sm-icons/facebook.svg";
 import instagram from "../../../assets/images/sm-icons/instagram.svg";
 import twitter from "../../../assets/images/sm-icons/twitter.svg";
-import linkedin from "../../../assets/images/sm-icons/linkedin.svg"; */
+import linkedin from "../../../assets/images/sm-icons/linkedin.svg";
 import options from "../../../assets/images/options.svg";
 
 //dummy profile picture
@@ -16,17 +15,6 @@ export default class Card extends Component {
   constructor(...props) {
     super(...props);
     this.state = {};
-  }
-
-  async componentWillReceiveProps(nextProps) {
-    const user = nextProps;
-    console.log(user);
-    (await user.name) ? console.log(user.name) : (user.name = "");
-    (await user.lastname) ? console.log(user.lastname) : (user.lastname = "");
-    (await user.status) ? console.log(user.status) : (user.status = "");
-    (await user.living) ? (user.living = {}) : console.log();
-    await this.setState(nextProps);
-    console.log(this.state);
   }
 
   render() {
@@ -45,39 +33,47 @@ export default class Card extends Component {
             <li>{this.props.status && <h4>{this.props.status}</h4>}</li>
             {this.props.contact.email && <li>{this.props.contact.email}</li>}
             {this.props.contact.phone && <li>{this.props.contact.phone}</li>}
-            {/*this.props.living.country && <li>{this.props.living.country}</li>*/}
-            {/*this.props.living.city && <li>{this.props.living.city}</li> */}
-            {/*
+            {this.props.living.country && <li>{this.props.living.country}</li>}
+            {this.props.living.city && <li>{this.props.living.city}</li>}
+            {this.props.contact.website && (
               <li>
-              <a href={this.props.contact.website}>Website</a>
+                <a href={this.props.contact.website}>Website</a>
               </li>
-              </ul>
-              <ul className="social-media">
+            )}
+          </ul>
+          <ul className="social-media">
+            {this.props.socials.facebook && (
               <li className="facebook sm-icon">
-              <a href="https://www.google.com/">
-              <img src={facebook} alt="" />
-              </a>
+                <a href={this.props.socials.facebook}>
+                  <img src={facebook} alt="" />
+                </a>
               </li>
+            )}
+            {this.props.socials.twitter && (
               <li className="twitter sm-icon">
-              <a href="https://www.google.com/">
-              <img src={twitter} alt="" />
-              </a>
+                <a href={this.props.socials.twitter}>
+                  <img src={twitter} alt="" />
+                </a>
               </li>
+            )}
+            {this.props.socials.linkedin && (
               <li className="linkedin sm-icon">
-              <a href="https://www.google.com/">
-              <img src={linkedin} alt="" />
-              </a>
+                <a href={this.props.socials.linkedin}>
+                  <img src={linkedin} alt="" />
+                </a>
               </li>
+            )}
+            {this.props.socials.instagram && (
               <li className="instagram sm-icon">
-              <a href="https://www.google.com/">
-              <img src={instagram} alt="" />
-              </a>
+                <a href={this.props.socials.instagram}>
+                  <img src={instagram} alt="" />
+                </a>
               </li>
-            */}
+            )}
           </ul>
         </div>
         <div className="updateProfile">
-          <Link to="/profile/update">
+          <Link to="/profile/update" profile={this.props}>
             <img src={options} alt="" />
           </Link>
         </div>
