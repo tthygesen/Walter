@@ -5,22 +5,17 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 const keys = require("./config/keys");
-const fileUpload = require("express-fileupload");
+const path = require("path");
+
+app.use(express.static(path.join(__dirname, "public")));
 
 //bodyparser
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 //passport
 app.use(passport.initialize());
 require("./config/passport")(passport);
-
-//File upload
-app.use(
-  fileUpload({
-    limits: { fileSize: 50 * 1024 * 1024 }
-  })
-);
 
 const dbConnection = () => {
   mongoose.connect(

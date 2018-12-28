@@ -46,11 +46,21 @@
           background: $petrol-hover;
         }
       }
-      .start {
+      .start,
+      .end,
+      .current {
         display: flex;
         input {
           width: calc(200px - 10px);
           margin-right: 20px;
+        }
+      }
+      .current {
+        align-items: center;
+        padding: 10px 0;
+        input {
+          margin-bottom: 0;
+          width: auto;
         }
       }
     }

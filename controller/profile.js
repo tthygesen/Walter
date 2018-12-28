@@ -1,5 +1,21 @@
-const mongooes = require("mongoose");
 const Profile = require("../models/Profile");
+const _ = require("lodash");
+const jimp = require("jimp");
+const uuid = require("uuid");
+const multer = require("multer");
+const multerOption = {
+  storage: multer.memoryStorage(),
+  fileFilter: function(req, file, next) {
+    const photo = file.mimetype.startsWith("image/");
+    if (photo) {
+      next(null, true);
+    } else {
+      next({ msg: "that filetype is not allowded!" }, false);
+    }
+  }
+};
+
+//photo upload path
 
 exports.userProfile = async (req, res) => {
   //res.send(req.user);
@@ -9,13 +25,33 @@ exports.userProfile = async (req, res) => {
   if (!profile) {
     res.status(404).json({ error: "profile not found" });
   }
+
   res.json(profile);
+};
+
+exports.uploade = multer(multerOption).single("photo");
+
+exports.rezise = async (req, res, next) => {
+  if (!req.file) {
+    next();
+    return;
+  }
+  const photoExtension = req.file.mimetype.split("/")[1];
+  req.body.photo = `${uuid.v4()}.${photoExtension}`;
+  const photo = await jimp.read(req.file.buffer).catch(err => {
+    console.log(err);
+  });
+  await photo.resize(500, jimp.AUTO);
+  await photo.write(`./public/photos/pp/${req.body.photo}`);
+
+  next();
 };
 
 exports.createProfile = async (req, res) => {
   const profileFields = {};
 
   profileFields.user = req.user.id;
+  if (req.body.photo) profileFields.photo = req.body.photo;
   if (req.body.name) profileFields.name = req.body.name;
   if (req.body.lastname) profileFields.lastname = req.body.lastname;
   if (req.body.status) profileFields.status = req.body.status;
@@ -72,8 +108,8 @@ exports.createWorkExperience = async (req, res) => {
   });
   if (profile) {
     const newExperience = {
-      position: req.body.position,
-      company: req.body.company,
+      position: req.body.what,
+      company: req.body.where,
       start: {
         month: req.body.startmonth,
         year: req.body.startyear
@@ -143,9 +179,12 @@ exports.deleteSkill = async (req, res) => {
     console.log(err);
   });
   if (profile) {
-    const experience = await profile.skills.map(item => item.id).indexOf(req.params.skill_id);
+    console.log(req.params);
+    const skill = await profile.skills
+      .map(item => item.id)
+      .indexOf(req.params.skill_id);
 
-    profile.skills.splice(experience, 1);
+    profile.skills.splice(skill, 1);
 
     const theProfile = await profile.save().catch(err => {
       console.log(err);
@@ -160,7 +199,9 @@ exports.deleteEducation = async (req, res) => {
     console.log(err);
   });
   if (profile) {
-    const education = await profile.educations.map(item => item.id).indexOf(req.params.edu_id);
+    const education = await profile.educations
+      .map(item => item.id)
+      .indexOf(req.params.edu_id);
 
     profile.educations.splice(education, 1);
 
@@ -177,7 +218,9 @@ exports.deleteExperience = async (req, res) => {
     console.log(err);
   });
   if (profile) {
-    const experience = await profile.workexperience.map(item => item.id).indexOf(req.params.edu_id);
+    const experience = await profile.workexperience
+      .map(item => item.id)
+      .indexOf(req.params.edu_id);
 
     profile.workexperience.splice(experience, 1);
 
@@ -189,7 +232,23 @@ exports.deleteExperience = async (req, res) => {
 };
 
 exports.searchProfiles = async (req, res) => {
-  const search = req.body.search;
-  res.send(search);
-  //const result = Profile.find();
+  const query = _.isEmpty(req.query.q);
+  if (query) {
+    const profiles = await Profile.find().catch(err => {
+      console.log(err);
+    });
+    res.json(profiles);
+  }
+  /* console.log(req.query.q);
+  res.json(req.query.q); */
+  const profiles = await Profile.find({
+    $text: {
+      $search: req.query.q
+    }
+  }).catch(err => console.log(err));
+  if (_.isEmpty(profiles)) {
+    res.json({ error: "no profiles found" });
+  } else {
+    res.json(profiles);
+  }
 };

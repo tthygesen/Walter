@@ -17,15 +17,23 @@ export default class Update extends Component {
     this.state = {};
     this.submit = this.submit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
   handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value
     });
   };
+  handleSelectedFile = event => {
+    console.log(event.target.files[0]);
+    this.setState({
+      photo: event.target.files[0]
+    });
+  };
   submit = async event => {
     event.preventDefault();
     const user = {
+      photo: this.state.photo,
       name: this.state.name,
       lastname: this.state.lastname,
       status: this.state.status,
@@ -91,15 +99,14 @@ export default class Update extends Component {
           <div className="general-info inputs-wrapper">
             <h4>General information</h4>
             <label htmlFor="propfilepicture">Profile picture</label>
-            {/*
 
-             <input
-             type="file"
-             onChange={this.handleChange}
-             value={this.state.name}
-             name="profilepicture"
-             />
-            */}
+            <input
+              onChange={this.handleSelectedFile}
+              type="file"
+              name="photo"
+              accept="image/gif, image/png, image/jpeg, image/jpg"
+            />
+
             <input
               type="text"
               name="name"

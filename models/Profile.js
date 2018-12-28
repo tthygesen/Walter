@@ -6,6 +6,9 @@ const profileSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "users"
   },
+  photo: {
+    type: String
+  },
   name: {
     type: String,
     trim: true
@@ -68,7 +71,7 @@ const profileSchema = new Schema({
         type: String
       },
       years: {
-        type: Number
+        type: String
       }
     }
   ],
@@ -130,6 +133,12 @@ const profileSchema = new Schema({
       }
     }
   ]
+});
+
+profileSchema.index({
+  name: "text",
+  lastname: "text",
+  skills: "text"
 });
 
 module.exports = Profile = mongoose.model("profiles", profileSchema);

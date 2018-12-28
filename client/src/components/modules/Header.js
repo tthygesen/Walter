@@ -42,9 +42,17 @@ export default class Header extends Component {
           <Link to="/">
             <img className="header-logo" src={logo} alt="company-logo" />
           </Link>
-          <input className="header-search" type="search" name="search" placeholder="Search" />
+          <input
+            className="header-search"
+            type="search"
+            name="search"
+            placeholder="Search"
+          />
         </div>
         <ul>
+          <li>
+            <Link to="/candidates">Candidates</Link>
+          </li>
           <li>
             <Link to="/contact">Contact</Link>
           </li>

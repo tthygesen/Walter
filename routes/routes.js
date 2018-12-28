@@ -7,7 +7,11 @@ const profileController = require("../controller/profile");
 
 const api = "api";
 //USER ROUTS
-router.post("/api/register", userController.validateRegister, userController.register);
+router.post(
+  "/api/register",
+  userController.validateRegister,
+  userController.register
+);
 router.post("/api/login", userController.validateLogin, userController.login);
 
 //PROFILE ROUTS
@@ -19,6 +23,8 @@ router.get(
 router.post(
   "/api/profile",
   passport.authenticate("jwt", { session: false }),
+  profileController.uploade,
+  profileController.rezise,
   profileController.createProfile
 );
 //Skills
@@ -56,6 +62,6 @@ router.delete(
 );
 
 //Search
-router.get("/api/search", profileController.searchProfiles);
+router.get("/api/profiles", profileController.searchProfiles);
 
 module.exports = router;

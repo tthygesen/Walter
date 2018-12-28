@@ -16,7 +16,9 @@ import Login from "./components/pages/Login";
 import Profile from "./components/pages/Profile";
 import Update from "./components/pages/Update";
 import AddExperience from "./components/pages/profile/AddExperience";
-import Search from "./components/pages/Search";
+import AddEducation from "./components/pages/profile/AddEducation";
+import AddSkill from "./components/pages/profile/AddSkill";
+import Candidates from "./components/pages/Candidates";
 
 class App extends Component {
   render() {
@@ -33,8 +35,14 @@ class App extends Component {
               <Route exact path="/login" component={Login} />
               <Route exact path="/profile" component={Profile} />
               <Route exact path="/profile/update" component={Update} />
-              <Route exact path="/profile/experience" component={AddExperience} />
-              <Route exact path="/search" component={Search} />
+              <Route
+                exact
+                path="/profile/experience"
+                component={AddExperience}
+              />
+              <Route exact path="/profile/education" component={AddEducation} />
+              <Route exact path="/profile/skill" component={AddSkill} />
+              <Route exact path="/candidates" component={Candidates} />
             </Switch>
             <Footer />
           </div>

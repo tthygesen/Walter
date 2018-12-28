@@ -1,27 +1,51 @@
 import React, { Component } from "react";
-
+import axios from "axios";
 //components
-import DeleteBtn from "./Delete";
-import AddBtn from "./Add";
+
+//images
+import remove from "../../../assets/images/delete.svg";
 
 export default class Experience extends Component {
+  constructor(...props) {
+    super(...props);
+    this.stat = {};
+
+    this.delete = this.delete.bind(this);
+  }
+  delete = async event => {
+    const id = this.props.data._id;
+    const res = await axios
+      .delete(`/api/profile/experience/${id}`)
+      .catch(err => {
+        console.log(err);
+      });
+    if (res) {
+      //console.log(res);
+      //TODO
+      //make the page reload
+    }
+  };
   render() {
+    const company = this.props.data.company;
+    const position = this.props.data.position;
+    const startmonth = this.props.data.start.month;
+    const startyear = this.props.data.start.year;
+    const endmonth = this.props.data.end.month;
+    const endyear = this.props.data.end.year;
+    const current = this.props.data.current;
     return (
-      <div className="experiences">
-        <div className="categori-header">
-          <h4>Experience</h4>
-          <AddBtn link="experience" />
-        </div>
-        <div className="experience">
-          <ul>
-            <li className="company">Irma</li>
-            <li className="position">Sales assistance</li>
-            <li className="period last">
-              <p>january 2014 - febuar 2015</p>
-              <DeleteBtn />
-            </li>
-          </ul>
-        </div>
+      <div className="experience">
+        <ul>
+          <li className="company">{company}</li>
+          <li className="position">{position}</li>
+          <li className="period last">
+            <p>
+              {`${startmonth} ${startyear} `} -{" "}
+              {current ? `Current` : `${endmonth} ${endyear} `}
+            </p>
+            <img src={remove} onClick={this.delete} alt="" />
+          </li>
+        </ul>
       </div>
     );
   }

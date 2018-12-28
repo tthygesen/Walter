@@ -9,7 +9,7 @@ import linkedin from "../../../assets/images/sm-icons/linkedin.svg";
 import options from "../../../assets/images/options.svg";
 
 //dummy profile picture
-import pp from "../../../assets/images/pp.jpg";
+//import pp from "../../../assets/images/pp.jpg";
 
 export default class Card extends Component {
   constructor(...props) {
@@ -18,10 +18,11 @@ export default class Card extends Component {
   }
 
   render() {
+    const photo = `http://localhost:5000/photos/pp/${this.props.photo}`;
     return (
       <article className="business-card">
         <div className="card-info">
-          <img src={pp} className="profile-picture" alt="" />
+          <img src={photo} className="profile-picture" alt="" />
           <ul className="basic-info">
             <li>
               {this.props.name && (

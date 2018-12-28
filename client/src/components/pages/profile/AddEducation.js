@@ -4,12 +4,12 @@ import axios from "axios";
 
 //Style
 import "../../../scss/pages/profile/add.scss";
-export default class AddExperience extends Component {
+export default class AddEducation extends Component {
   constructor(...props) {
     super(...props);
     this.state = {
-      what: "",
-      where: "",
+      school: "",
+      country: "",
       startmonth: "",
       startyear: "",
       endmonth: "",
@@ -28,18 +28,18 @@ export default class AddExperience extends Component {
   };
   submit = async event => {
     event.preventDefault();
-    const experience = {
-      what: this.state.what,
-      where: this.state.where,
+    const education = {
+      school: this.state.school,
+      country: this.state.country,
       startmonth: this.state.startmonth,
       startyear: this.state.startyear,
       endmonth: this.state.endmonth,
       endyear: this.state.endyear,
       current: this.state.current
     };
-    console.log(experience);
+    console.log(education);
     const res = await axios
-      .post("/api/profile/experience", experience)
+      .post("/api/profile/education", education)
       .catch(err => {
         console.log(err);
       });
@@ -64,23 +64,23 @@ export default class AddExperience extends Component {
       <React.Fragment>
         <section className="main-add">
           <article className="add-header">
-            <h1>Add experience</h1>
+            <h1>Add education</h1>
           </article>
           <article className="form-wrapper">
             <form onSubmit={this.submit}>
               <input
                 type="text"
-                name="what"
+                name="school"
                 onChange={this.handleChange}
                 value={this.state.what}
-                placeholder="What position did you have?"
+                placeholder="What Education"
               />
               <input
                 type="text"
-                name="where"
+                name="country"
                 onChange={this.handleChange}
                 value={this.state.where}
-                placeholder="what company was it?"
+                placeholder="Where"
               />
               <div className="current">
                 <input
@@ -92,7 +92,7 @@ export default class AddExperience extends Component {
                   onChange={this.handleCheck}
                   id="current"
                 />
-                <p>I work here</p>
+                <p>I go here</p>
               </div>
               <div className="start">
                 <input
