@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Context } from "../../Provider";
 
 //images
-import pp from "../../../assets/images/pp.jpg";
+//import pp from "../../../assets/images/pp.jpg";
 
 export default class SearchCard extends Component {
   static contextType = Context;
@@ -18,6 +18,8 @@ export default class SearchCard extends Component {
   };
 
   render() {
+    //console.log(this.props);
+    const pp = `http://localhost:5000/photos/pp/${this.props.data.photo}`;
     return (
       <Link to={`/account/${this.props.data.user}`}>
         <div className="card" onClick={this.logId}>

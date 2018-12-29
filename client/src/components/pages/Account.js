@@ -34,7 +34,7 @@ export default class Account extends Component {
   }
   getProfile = async () => {
     const id = this.props.match.params.acc_id;
-    console.log(id);
+    //console.log(id);
     const res = await axios.get(`/api/candidate/${id}`).catch(err => {
       console.log(err);
     });
@@ -47,6 +47,9 @@ export default class Account extends Component {
       profile.educations = _.isEmpty(profile.educations)
         ? []
         : profile.educations;
+      profile.workexperienece = _.isEmpty(profile.workexperienece)
+        ? []
+        : profile.workexperienece;
 
       this.setState({
         photo: profile.photo,

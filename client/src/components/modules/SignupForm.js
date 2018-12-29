@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Redirect } from "react-router";
 //style
 import "../../scss/modules/Form.scss";
 
@@ -10,7 +11,8 @@ export default class SignupForm extends Component {
       error: "",
       email: "",
       password: "",
-      password2: ""
+      password2: "",
+      userCreated: false
     };
 
     this.onSubmit = this.onSubmit.bind(this);
@@ -30,7 +32,6 @@ export default class SignupForm extends Component {
       password: this.state.password,
       password2: this.state.password2
     };
-    console.log(newUser);
     const res = await axios.post("api/register", newUser).catch(err => {
       const validationError = err.response.data;
       this.setState({
@@ -38,10 +39,18 @@ export default class SignupForm extends Component {
       });
       return;
     });
-    if (res) console.log(res.data);
+    if (res) {
+      console.log("user was created");
+      this.setState({
+        userCreated: true
+      });
+    }
   }
   render() {
-    const { error } = this.state;
+    const { error, userCreated } = this.state;
+    if (userCreated) {
+      return <Redirect to={"/login"} />;
+    }
     return (
       <div className="form-wrapper">
         <form className="form" onSubmit={this.onSubmit}>

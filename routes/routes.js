@@ -15,18 +15,23 @@ router.post(
 router.post("/api/login", userController.validateLogin, userController.login);
 
 //PROFILE ROUTS
+router.get("/api/candidate/:acc_id", profileController.seeProfile);
 router.get(
   "/api/profile",
   passport.authenticate("jwt", { session: false }),
   profileController.userProfile
 );
-router.get("/api/candidate/:acc_id", profileController.seeProfile);
 router.post(
   "/api/profile",
   passport.authenticate("jwt", { session: false }),
   profileController.uploade,
   profileController.rezise,
   profileController.createProfile
+);
+router.delete(
+  "/api/profile",
+  passport.authenticate("jwt", { session: false }),
+  profileController.deleteProfile
 );
 //Skills
 router.post(

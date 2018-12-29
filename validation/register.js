@@ -3,7 +3,7 @@ const registerValidation = reqBody => {
   const errors = {};
   switch (true) {
     case validator.isEmpty(reqBody.email):
-      errors.error = "Please supply a email";
+      errors.error = "Please supply an email";
       break;
     case !validator.isEmail(reqBody.email):
       errors.error = "Email must be valid email";

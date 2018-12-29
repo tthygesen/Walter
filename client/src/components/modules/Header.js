@@ -7,8 +7,16 @@ import "../../scss/modules/Header.scss";
 
 //images
 import logo from "../../assets/images/main-logo.png";
+import search_icon from "../../assets/images/search.svg";
 
 export default class Header extends Component {
+  constructor(...props) {
+    super(...props);
+    this.handleChange = this.handleChange.bind(this);
+  }
+  handleChange = event => {
+    this.context.headerSeacrh(event.target.value);
+  };
   static contextType = Context;
   render() {
     let userAuth = this.context.state.authenticated;
@@ -42,12 +50,20 @@ export default class Header extends Component {
           <Link to="/">
             <img className="header-logo" src={logo} alt="company-logo" />
           </Link>
-          <input
-            className="header-search"
-            type="search"
-            name="search"
-            placeholder="Search"
-          />
+          <form>
+            <input
+              className="header-search"
+              type="search"
+              name="search"
+              placeholder="Search"
+              onChange={this.handleChange}
+            />
+            <button type="button">
+              <Link to={"/candidates"}>
+                <img src={search_icon} alt="" />
+              </Link>
+            </button>
+          </form>
         </div>
         <ul>
           <li>

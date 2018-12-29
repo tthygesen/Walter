@@ -34,10 +34,10 @@ export default class Profile extends Component {
   }
   getUserProfile = async () => {
     const res = await axios.get("/api/profile").catch(err => {
-      console.log(err);
+      //console.log(err);
     });
     if (res) {
-      console.log(res.data);
+      //console.log(res.data);
       const profile = res.data;
       profile.socials = _.isEmpty(profile.socials) ? {} : profile.socials;
       profile.living = _.isEmpty(profile.living) ? {} : profile.living;

@@ -1,8 +1,4 @@
-//make Provider.js -> component
-//create context
-
 import React, { Component } from "react";
-
 export const Context = React.createContext();
 
 export default class Provider extends Component {
@@ -15,7 +11,8 @@ export default class Provider extends Component {
         email: ""
       },
       page: undefined,
-      account: ""
+      account: "",
+      search: ""
     };
   }
   setCurrentUser = decode => {
@@ -29,8 +26,12 @@ export default class Provider extends Component {
       }
     });
   };
+  headerSeacrh = input => {
+    this.setState({
+      search: input
+    });
+  };
   logUserOut = () => {
-    console.log("log out");
     localStorage.removeItem("jwt");
     this.setState({
       authenticated: false
@@ -52,6 +53,8 @@ export default class Provider extends Component {
       this.setState({
         authenticated: true
       });
+    } else {
+      this.logUserOut();
     }
   };
   componentWillMount() {
@@ -65,7 +68,8 @@ export default class Provider extends Component {
           setCurrentUser: this.setCurrentUser,
           logUserOut: this.logUserOut,
           setPage: this.setPage,
-          logAccountId: this.logAccountId
+          logAccountId: this.logAccountId,
+          headerSeacrh: this.headerSeacrh
         }}
       >
         {this.props.children}

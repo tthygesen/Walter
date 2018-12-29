@@ -25,7 +25,8 @@ export default class Candidates extends Component {
     this.search = this.search.bind(this);
   }
   getProfiles = async () => {
-    const res = await axios.get("/api/profiles?q=").catch(err => {
+    const query = this.context.state.search;
+    const res = await axios.get(`/api/profiles?q=${query}`).catch(err => {
       console.log(err);
     });
     if (res) {
@@ -61,9 +62,8 @@ export default class Candidates extends Component {
       });
   };
   componentDidMount() {
-    const page = "Candidates";
+    this.context.setPage("Candidates");
     this.getProfiles();
-    this.context.setPage(page);
   }
   render() {
     return (

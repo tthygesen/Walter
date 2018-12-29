@@ -1,0 +1,31 @@
+ //general
+      res.data.name = _.isEmpty(res.data.name) ? "" : res.data.name;
+      res.data.lastname = _.isEmpty(res.data.lastname) ? "" : res.data.lastname;
+      res.data.status = _.isEmpty(res.data.status) ? "" : res.data.status;
+      //contact
+      res.data.contact.email = _.isEmpty(res.data.contact.email)
+        ? ""
+        : res.data.contact.email;
+      res.data.contact.phone = _.isEmpty(res.data.contact.phone)
+        ? ""
+        : res.data.contact.phone;
+      //Living
+      res.data.living.country = _.isEmpty(res.data.living.country)
+        ? ""
+        : res.data.living.country;
+      res.data.living.city = _.isEmpty(res.data.living.city)
+        ? ""
+        : res.data.living.city;
+      //Socials
+      res.data.socials.facbook = _.isEmpty(res.data.socials.facbook)
+        ? ""
+        : res.data.socials.facbook;
+      res.data.socials.twitter = _.isEmpty(res.data.socials.twitter)
+        ? ""
+        : res.data.socials.twitter;
+      res.data.socials.instagram = _.isEmpty(res.data.socials.instagram)
+        ? ""
+        : res.data.socials.instagram;
+      res.data.socials.linkedin = _.isEmpty(res.data.socials.linkedin)
+        ? ""
+        : res.data.socials.linkedin;

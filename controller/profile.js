@@ -1,4 +1,5 @@
 const Profile = require("../models/Profile");
+const User = require("../models/User");
 const _ = require("lodash");
 const jimp = require("jimp");
 const uuid = require("uuid");
@@ -15,8 +16,6 @@ const multerOption = {
   }
 };
 
-//photo upload path
-
 exports.userProfile = async (req, res) => {
   //res.send(req.user);
   const profile = await Profile.findOne({ user: req.user.id }).catch(err => {
@@ -24,9 +23,9 @@ exports.userProfile = async (req, res) => {
   });
   if (!profile) {
     res.status(404).json({ error: "profile not found" });
+  } else {
+    res.json(profile);
   }
-
-  res.json(profile);
 };
 
 exports.uploade = multer(multerOption).single("photo");
@@ -45,6 +44,17 @@ exports.rezise = async (req, res, next) => {
   await photo.write(`./public/photos/pp/${req.body.photo}`);
 
   next();
+};
+
+exports.deleteProfile = async (req, res) => {
+  const userID = req.user._id;
+  await Profile.findOneAndDelete({ user: userID }).catch(err => {
+    return res.status(400).json({ error: "Could not delete profile" });
+  });
+  await User.findByIdAndDelete(userID).catch(err => {
+    return res.status(400).json({ error: "Could not delete user" });
+  });
+  res.json({ sucsses: "Account was delete" });
 };
 
 exports.createProfile = async (req, res) => {
@@ -231,6 +241,7 @@ exports.deleteExperience = async (req, res) => {
   }
 };
 
+//Search profiles
 exports.searchProfiles = async (req, res) => {
   const query = _.isEmpty(req.query.q);
   if (query) {
@@ -238,6 +249,7 @@ exports.searchProfiles = async (req, res) => {
       console.log(err);
     });
     res.json(profiles);
+    return;
   }
   const profiles = await Profile.find({
     $text: {
@@ -251,10 +263,13 @@ exports.searchProfiles = async (req, res) => {
   }
 };
 
+//See a users profile
 exports.seeProfile = async (req, res) => {
   const id = req.params.acc_id;
   const profile = await Profile.findOne({ user: id }).catch(err => {
     res.status(404).json({ err: "Could not get to the user" });
   });
-  if (profile) res.json(profile);
+  if (profile) {
+    res.json(profile);
+  }
 };

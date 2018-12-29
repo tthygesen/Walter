@@ -137,8 +137,7 @@ const profileSchema = new Schema({
 
 profileSchema.index({
   name: "text",
-  lastname: "text",
-  skills: "text"
+  lastname: "text"
 });
 
 module.exports = Profile = mongoose.model("profiles", profileSchema);

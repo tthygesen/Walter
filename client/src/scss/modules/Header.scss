@@ -19,19 +19,37 @@
   }
   div {
     align-items: center;
-    .header-logo,
-    .header-search {
+    .header-logo {
       margin: 0 25px;
     }
     .header-logo {
       width: 40px;
     }
-    .header-search {
-      width: 250px;
-      height: 30px;
-      border-radius: 100px;
-      border: none;
-      padding: 0 20px;
+    form {
+      display: flex;
+      align-items: center;
+      .header-search {
+        width: 250px;
+        height: 30px;
+        border: none;
+        padding: 0 20px;
+        border-bottom-left-radius: 100px;
+        border-top-left-radius: 100px;
+        background-color: white !important;
+      }
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 30px;
+        width: 50px;
+        background: white;
+        border-top-right-radius: 46px;
+        border-bottom-right-radius: 46px;
+        img {
+          height: 20px;
+        }
+      }
     }
   }
 }

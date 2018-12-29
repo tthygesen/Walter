@@ -1,63 +1,93 @@
 import React, { Component } from "react";
 
 //Social media icons
-import facebook from "../../../assets/images/sm-icons/facebook.svg";
-import instagram from "../../../assets/images/sm-icons/instagram.svg";
-import twitter from "../../../assets/images/sm-icons/twitter.svg";
-import linkedin from "../../../assets/images/sm-icons/linkedin.svg";
+import facebook_icon from "../../../assets/images/sm-icons/facebook.svg";
+import instagram_icon from "../../../assets/images/sm-icons/instagram.svg";
+import twitter_icon from "../../../assets/images/sm-icons/twitter.svg";
+import linkedin_icon from "../../../assets/images/sm-icons/linkedin.svg";
 
 export default class UserAccount extends Component {
+  componentWillMount() {}
   render() {
-    const photo = `http://localhost:5000/photos/pp/${this.props.photo}`;
+    const p = this.props;
+
+    const photo = p.photo === "undefined" || undefined ? "" : p.photo;
+    const name = p.name === "undefined" || undefined ? "" : p.name;
+    const lastname = p.lastname === "undefined" || undefined ? "" : p.lastname;
+    const status = p.status === "undefined" || undefined ? "" : p.status;
+    //Contact
+    const email =
+      p.contact.email === "undefined" || undefined ? "" : p.contact.email;
+    const phone =
+      p.contact.phone === "undefined" || undefined ? "" : p.contact.phone;
+    const website =
+      p.contact.website === "undefined" || undefined ? "" : p.contact.website;
+    //living
+    const country =
+      p.living.country === "undefined" || undefined ? "" : p.living.country;
+    const city =
+      p.living.city === "undefined" || undefined ? "" : p.living.city;
+    //socials
+    const facebook =
+      p.socials.facebook === "undefined" || undefined ? "" : p.socials.facebook;
+    const twitter =
+      p.socials.twitter === "undefined" || undefined ? "" : p.socials.twitter;
+    const instagram =
+      p.socials.instagram === "undefined" || undefined
+        ? ""
+        : p.socials.instagram;
+    const linkedin =
+      p.socials.linkedin === "undefined" || undefined ? "" : p.socials.linkedin;
+    const pp = `http://localhost:5000/photos/pp/${photo}`;
     return (
       <article className="business-card">
         <div className="card-info">
-          <img src={photo} className="profile-picture" alt="" />
+          <img src={pp} className="profile-picture" alt="" />
           <ul className="basic-info">
             <li>
-              {this.props.name && (
+              {name && (
                 <h1>
-                  {this.props.name} {this.props.lastname}
+                  {name} {lastname}
                 </h1>
               )}
             </li>
-            <li>{this.props.status && <h4>{this.props.status}</h4>}</li>
-            {this.props.contact.email && <li>{this.props.contact.email}</li>}
-            {this.props.contact.phone && <li>{this.props.contact.phone}</li>}
-            {this.props.living.country && <li>{this.props.living.country}</li>}
-            {this.props.living.city && <li>{this.props.living.city}</li>}
-            {this.props.contact.website && (
+            <li>{status && <h4>{status}</h4>}</li>
+            {email && <li>{email}</li>}
+            {phone && <li>{phone}</li>}
+            {country && <li>{country}</li>}
+            {city && <li>{city}</li>}
+            {website && (
               <li>
-                <a href={this.props.contact.website}>Website</a>
+                <a href={website}>Website</a>
               </li>
             )}
           </ul>
           <ul className="social-media">
-            {this.props.socials.facebook && (
+            {facebook && (
               <li className="facebook sm-icon">
-                <a href={this.props.socials.facebook}>
-                  <img src={facebook} alt="" />
+                <a href={facebook}>
+                  <img src={facebook_icon} alt="" />
                 </a>
               </li>
             )}
-            {this.props.socials.twitter && (
+            {twitter && (
               <li className="twitter sm-icon">
-                <a href={this.props.socials.twitter}>
-                  <img src={twitter} alt="" />
+                <a href={twitter}>
+                  <img src={twitter_icon} alt="" />
                 </a>
               </li>
             )}
-            {this.props.socials.linkedin && (
+            {linkedin && (
               <li className="linkedin sm-icon">
-                <a href={this.props.socials.linkedin}>
-                  <img src={linkedin} alt="" />
+                <a href={linkedin}>
+                  <img src={linkedin_icon} alt="" />
                 </a>
               </li>
             )}
-            {this.props.socials.instagram && (
+            {instagram && (
               <li className="instagram sm-icon">
-                <a href={this.props.socials.instagram}>
-                  <img src={instagram} alt="" />
+                <a href={instagram}>
+                  <img src={instagram_icon} alt="" />
                 </a>
               </li>
             )}
