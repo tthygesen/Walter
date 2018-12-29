@@ -14,7 +14,8 @@ export default class Provider extends Component {
         id: "",
         email: ""
       },
-      page: undefined
+      page: undefined,
+      account: ""
     };
   }
   setCurrentUser = decode => {
@@ -40,6 +41,11 @@ export default class Provider extends Component {
       page: currentpage
     });
   };
+  logAccountId = id => {
+    this.setState({
+      account: id
+    });
+  };
   checkAuth = () => {
     const auth = localStorage.getItem("jwt");
     if (auth) {
@@ -58,7 +64,8 @@ export default class Provider extends Component {
           state: this.state,
           setCurrentUser: this.setCurrentUser,
           logUserOut: this.logUserOut,
-          setPage: this.setPage
+          setPage: this.setPage,
+          logAccountId: this.logAccountId
         }}
       >
         {this.props.children}

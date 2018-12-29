@@ -15,12 +15,24 @@
       letter-spacing: 2.5px;
       font-weight: 500;
     }
-    input {
-      width: 700px;
-      min-width: 250px;
-      padding: 10px;
-      border: none;
-      border-radius: 36px;
+    form {
+      display: flex;
+      width: 600px;
+      input {
+        width: 700px;
+        min-width: 250px;
+        padding: 10px;
+        border: none;
+        border-top-left-radius: 36px;
+        border-bottom-left-radius: 36px;
+      }
+      button {
+        width: 50px;
+        padding: 10px;
+        background: white;
+        border-top-right-radius: 46px;
+        border-bottom-right-radius: 46px;
+      }
     }
   }
 

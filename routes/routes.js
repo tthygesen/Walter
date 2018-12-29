@@ -20,6 +20,7 @@ router.get(
   passport.authenticate("jwt", { session: false }),
   profileController.userProfile
 );
+router.get("/api/candidate/:acc_id", profileController.seeProfile);
 router.post(
   "/api/profile",
   passport.authenticate("jwt", { session: false }),

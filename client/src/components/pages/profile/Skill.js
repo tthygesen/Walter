@@ -7,7 +7,9 @@ import remove from "../../../assets/images/delete.svg";
 export default class Skill extends Component {
   constructor(...props) {
     super(...props);
-    this.stat = {};
+    this.state = {
+      account: false
+    };
 
     this.delete = this.delete.bind(this);
   }
@@ -22,6 +24,13 @@ export default class Skill extends Component {
       //make the page reload
     }
   };
+  componentWillMount() {
+    if (this.props.account) {
+      this.setState({
+        account: this.props.account
+      });
+    }
+  }
   render() {
     const skill = this.props.data.skill;
     const years = this.props.data.years;
@@ -31,7 +40,9 @@ export default class Skill extends Component {
           <li className="theSkill">{skill}</li>
           <li className="years last">
             <p>{years} years</p>
-            <img src={remove} onClick={this.delete} alt="" />
+            {!this.state.account && (
+              <img src={remove} onClick={this.delete} alt="" />
+            )}
           </li>
         </ul>
       </div>

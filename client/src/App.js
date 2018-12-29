@@ -19,6 +19,7 @@ import AddExperience from "./components/pages/profile/AddExperience";
 import AddEducation from "./components/pages/profile/AddEducation";
 import AddSkill from "./components/pages/profile/AddSkill";
 import Candidates from "./components/pages/Candidates";
+import Account from "./components/pages/Account";
 
 class App extends Component {
   render() {
@@ -43,6 +44,7 @@ class App extends Component {
               <Route exact path="/profile/education" component={AddEducation} />
               <Route exact path="/profile/skill" component={AddSkill} />
               <Route exact path="/candidates" component={Candidates} />
+              <Route exact path="/account/:acc_id" component={Account} />
             </Switch>
             <Footer />
           </div>

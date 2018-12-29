@@ -7,7 +7,9 @@ import remove from "../../../assets/images/delete.svg";
 export default class Education extends Component {
   constructor(...props) {
     super(...props);
-    this.stat = {};
+    this.state = {
+      account: false
+    };
 
     this.delete = this.delete.bind(this);
   }
@@ -24,6 +26,13 @@ export default class Education extends Component {
       //make the page reload
     }
   };
+  componentWillMount() {
+    if (this.props.account) {
+      this.setState({
+        account: this.props.account
+      });
+    }
+  }
   render() {
     const school = this.props.data.school;
     const country = this.props.data.country;
@@ -42,7 +51,9 @@ export default class Education extends Component {
               {`${startmonth} ${startyear} `} -{" "}
               {current ? `Current` : `${endmonth} ${endyear} `}
             </p>
-            <img src={remove} onClick={this.delete} alt="" />
+            {!this.state.account && (
+              <img src={remove} onClick={this.delete} alt="" />
+            )}
           </li>
         </ul>
       </div>

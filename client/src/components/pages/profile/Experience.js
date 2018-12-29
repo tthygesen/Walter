@@ -8,7 +8,9 @@ import remove from "../../../assets/images/delete.svg";
 export default class Experience extends Component {
   constructor(...props) {
     super(...props);
-    this.stat = {};
+    this.state = {
+      account: false
+    };
 
     this.delete = this.delete.bind(this);
   }
@@ -25,6 +27,13 @@ export default class Experience extends Component {
       //make the page reload
     }
   };
+  componentWillMount() {
+    if (this.props.account) {
+      this.setState({
+        account: this.props.account
+      });
+    }
+  }
   render() {
     const company = this.props.data.company;
     const position = this.props.data.position;
@@ -43,7 +52,9 @@ export default class Experience extends Component {
               {`${startmonth} ${startyear} `} -{" "}
               {current ? `Current` : `${endmonth} ${endyear} `}
             </p>
-            <img src={remove} onClick={this.delete} alt="" />
+            {!this.state.account && (
+              <img src={remove} onClick={this.delete} alt="" />
+            )}
           </li>
         </ul>
       </div>

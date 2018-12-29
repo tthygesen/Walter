@@ -6,6 +6,9 @@ import _ from "lodash";
 //Style
 import "../../scss/pages/candidates.scss";
 
+//images
+import searchIcon from "../../assets/images/search.svg";
+
 //Components
 import SearchCard from "../templates/search/SearchCard";
 
@@ -17,6 +20,7 @@ export default class Candidates extends Component {
       search: "",
       profiles: []
     };
+    this.handleChange = this.handleChange.bind(this);
     this.getProfiles = this.getProfiles.bind(this);
     this.search = this.search.bind(this);
   }
@@ -25,40 +29,38 @@ export default class Candidates extends Component {
       console.log(err);
     });
     if (res) {
-      console.log(res.data);
       this.setState({
         profiles: res.data
       });
     }
   };
-  displayProfiles = () => {
-    this.state.profiles.map((profile, i) => {
-      return <SearchCard data={profile} key={i} />;
+  handleChange = event => {
+    this.setState({
+      search: event.target.value
     });
   };
   search = async event => {
-    await this.setState({
-      search: event.target.value
+    event.preventDefault();
+    this.setState({
+      profiles: []
     });
+    console.log(this.state.search);
     if (_.isEmpty(this.state.search)) {
-      console.log("EMPTY");
+      this.getProfiles();
       return;
     }
-
     const res = await axios
       .get(`/api/profiles?q=${this.state.search}`)
       .catch(err => {
         console.log(err);
         return;
       });
-    if (res.data) {
-      console.log(res.data);
+    if (res.data)
       this.setState({
         profiles: res.data
       });
-    }
   };
-  componentWillMount() {
+  componentDidMount() {
     const page = "Candidates";
     this.getProfiles();
     this.context.setPage(page);
@@ -68,22 +70,23 @@ export default class Candidates extends Component {
       <section className="main-search">
         <article className="search-header">
           <h1>Candidates</h1>
-          <input
-            type="search"
-            name="search"
-            placeholder="Search for your new candidate"
-            value={this.state.search}
-            onChange={this.search}
-          />
+          <form onSubmit={this.search}>
+            <input
+              type="search"
+              name="search"
+              placeholder="Search for your new candidate"
+              value={this.state.search}
+              onChange={this.handleChange}
+            />
+            <button type="submit">
+              <img src={searchIcon} alt="" />
+            </button>
+          </form>
         </article>
         <article className="search-results">
-          {_.isEmpty(this.state.profiles) ? (
-            <p> looking . . . </p>
-          ) : (
-            this.state.profiles.map((profile, i) => (
-              <SearchCard data={profile} key={i} />
-            ))
-          )}
+          {this.state.profiles.map((profile, i) => (
+            <SearchCard data={profile} key={i} />
+          ))}
         </article>
       </section>
     );

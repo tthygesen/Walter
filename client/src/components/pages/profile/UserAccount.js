@@ -1,19 +1,12 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 
 //Social media icons
 import facebook from "../../../assets/images/sm-icons/facebook.svg";
 import instagram from "../../../assets/images/sm-icons/instagram.svg";
 import twitter from "../../../assets/images/sm-icons/twitter.svg";
 import linkedin from "../../../assets/images/sm-icons/linkedin.svg";
-import options from "../../../assets/images/options.svg";
 
-export default class Card extends Component {
-  constructor(...props) {
-    super(...props);
-    this.state = {};
-  }
-
+export default class UserAccount extends Component {
   render() {
     const photo = `http://localhost:5000/photos/pp/${this.props.photo}`;
     return (
@@ -69,11 +62,6 @@ export default class Card extends Component {
               </li>
             )}
           </ul>
-        </div>
-        <div className="updateProfile">
-          <Link to="/profile/update" profile={this.props}>
-            <img src={options} alt="" />
-          </Link>
         </div>
       </article>
     );

@@ -239,16 +239,22 @@ exports.searchProfiles = async (req, res) => {
     });
     res.json(profiles);
   }
-  /* console.log(req.query.q);
-  res.json(req.query.q); */
   const profiles = await Profile.find({
     $text: {
       $search: req.query.q
     }
   }).catch(err => console.log(err));
   if (_.isEmpty(profiles)) {
-    res.json({ error: "no profiles found" });
+    res.json([]);
   } else {
     res.json(profiles);
   }
+};
+
+exports.seeProfile = async (req, res) => {
+  const id = req.params.acc_id;
+  const profile = await Profile.findOne({ user: id }).catch(err => {
+    res.status(404).json({ err: "Could not get to the user" });
+  });
+  if (profile) res.json(profile);
 };
