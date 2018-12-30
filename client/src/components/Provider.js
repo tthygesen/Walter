@@ -16,7 +16,7 @@ export default class Provider extends Component {
     };
   }
   setCurrentUser = decode => {
-    console.log(decode);
+    //console.log(decode);
     //set authenticated to true and populate the user state;
     this.setState({
       authenticated: true,

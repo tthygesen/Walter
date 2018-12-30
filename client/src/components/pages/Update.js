@@ -95,7 +95,7 @@ export default class Update extends Component {
 
   getUserData = async () => {
     const res = await axios.get("/api/profile").catch(err => {
-      console.log(err);
+      console.log("No informaton... please fillout the form");
     });
 
     if (res) {

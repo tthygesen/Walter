@@ -50,15 +50,16 @@ export default class LoginForm extends Component {
       setAuthHeader(token);
 
       //decode token
-      const decode = jwt_decode(token);
+      if (token) {
+        const decode = jwt_decode(token);
+        //set user
+        this.context.setCurrentUser(decode);
 
-      //set user
-      this.context.setCurrentUser(decode);
-
-      //go to profile
-      this.setState({
-        gotIn: true
-      });
+        //go to profile
+        this.setState({
+          gotIn: true
+        });
+      }
     }
   }
 
