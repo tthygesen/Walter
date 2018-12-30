@@ -19,7 +19,7 @@ require("./config/passport")(passport);
 
 const dbConnection = () => {
   mongoose.connect(
-    `mongodb://${keys.dbuser}:${keys.dbpassword}@ds125574.mlab.com:25574/app`,
+    keys.mongoURI,
     { useNewUrlParser: true, useCreateIndex: true },
     err => {
       if (err) {
