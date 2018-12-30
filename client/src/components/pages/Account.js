@@ -51,12 +51,14 @@ export default class Account extends Component {
         ? []
         : profile.workexperienece;
 
+      const bio = profile.bio === "undefined" || undefined ? "" : profile.bio;
+
       this.setState({
         photo: profile.photo,
         name: profile.name,
         lastname: profile.lastname,
         status: profile.status,
-        bio: profile.bio,
+        bio: bio,
         contact: profile.contact,
         socials: profile.socials,
         living: profile.living,

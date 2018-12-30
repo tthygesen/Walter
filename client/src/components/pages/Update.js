@@ -192,6 +192,7 @@ export default class Update extends Component {
               placeholder="First name"
               onChange={this.handleChange}
               value={this.state.name}
+              required
             />
             <input
               type="text"
@@ -199,6 +200,7 @@ export default class Update extends Component {
               placeholder="Last name"
               onChange={this.handleChange}
               value={this.state.lastname}
+              required
             />
             <input
               type="text"
@@ -206,6 +208,7 @@ export default class Update extends Component {
               placeholder="Status"
               onChange={this.handleChange}
               value={this.state.status}
+              required
             />
             <input
               type="email"
@@ -213,6 +216,7 @@ export default class Update extends Component {
               placeholder="Email"
               onChange={this.handleChange}
               value={this.state.email}
+              required
             />
             <input
               type="tel"
@@ -227,6 +231,7 @@ export default class Update extends Component {
               placeholder="Country"
               onChange={this.handleChange}
               value={this.state.country}
+              required
             />
             <input
               type="text"
@@ -234,6 +239,7 @@ export default class Update extends Component {
               placeholder="City"
               onChange={this.handleChange}
               value={this.state.city}
+              required
             />
             <input
               type="text"
