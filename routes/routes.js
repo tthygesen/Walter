@@ -5,13 +5,14 @@ const passport = require("passport");
 const userController = require("../controller/user");
 const profileController = require("../controller/profile");
 
-const api = "api";
 //USER ROUTS
+//regiser
 router.post(
   "/api/register",
   userController.validateRegister,
   userController.register
 );
+//login
 router.post("/api/login", userController.validateLogin, userController.login);
 
 //PROFILE ROUTS

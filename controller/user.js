@@ -102,5 +102,4 @@ exports.login = async (req, res, next) => {
   } else {
     return res.status(400).json({ error: "password incorrect" });
   }
-  next();
 };
