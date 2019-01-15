@@ -45,7 +45,7 @@ export default class Candidates extends Component {
     this.setState({
       profiles: []
     });
-    console.log(this.state.search);
+    //console.log(this.state.search);
     if (_.isEmpty(this.state.search)) {
       this.getProfiles();
       return;
@@ -56,15 +56,18 @@ export default class Candidates extends Component {
         console.log(err);
         return;
       });
-    if (res.data)
+    if (res.data) {
       this.setState({
         profiles: res.data
       });
+      this.context.headerSeacrh("");
+    }
   };
   componentDidMount() {
     this.context.setPage("Candidates");
     this.getProfiles();
   }
+  componentDidUpdate() {}
   render() {
     return (
       <section className="main-search">

@@ -44,59 +44,74 @@ const profileSchema = new Schema({
   },
   living: {
     country: {
-      type: String
+      type: String,
+      trim: true
     },
     city: {
-      type: String
+      type: String,
+      trim: true
     }
   },
   socials: {
     facebook: {
-      type: String
+      type: String,
+      trim: true
     },
     instagram: {
-      type: String
+      type: String,
+      trim: true
     },
     twitter: {
-      type: String
+      type: String,
+      trim: true
     },
 
     linkedin: {
-      type: String
+      type: String,
+      trim: true
     }
   },
   skills: [
     {
       skill: {
-        type: String
+        type: String,
+        lowercase: true,
+        trim: true
       },
       years: {
-        type: String
+        type: String,
+        trim: true
       }
     }
   ],
   workexperience: [
     {
       position: {
-        type: String
+        type: String,
+        trim: true
       },
       company: {
-        type: String
+        type: String,
+        trim: true
       },
       start: {
         month: {
-          type: String
+          type: String,
+          trim: true
         },
         year: {
-          type: String
+          type: String,
+          trim: true
         }
       },
       end: {
         month: {
-          type: String
+          type: String,
+          trim: true
         },
         year: {
-          type: String
+          type: String,
+          trim: true
         }
       },
       current: {
@@ -107,25 +122,31 @@ const profileSchema = new Schema({
   educations: [
     {
       school: {
-        type: String
+        type: String,
+        trim: true
       },
       country: {
-        type: String
+        type: String,
+        trim: true
       },
       start: {
         month: {
-          type: String
+          type: String,
+          trim: true
         },
         year: {
-          type: String
+          type: String,
+          trim: true
         }
       },
       end: {
         month: {
-          type: String
+          type: String,
+          trim: true
         },
         year: {
-          type: String
+          type: String,
+          trim: true
         }
       },
       current: {

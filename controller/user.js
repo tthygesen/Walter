@@ -18,7 +18,7 @@ exports.validateRegister = (req, res, next) => {
   next();
 };
 
-exports.register = async (req, res) => {
+exports.register = async (req, res, next) => {
   //Get values from form
   const email = req.body.email;
   const password = req.body.password;
@@ -35,7 +35,6 @@ exports.register = async (req, res) => {
       email: email,
       password: password
     });
-    const newProfile = new Profile({});
 
     //hash password
     bcrypt.genSalt(15, (err, salt) => {
@@ -49,11 +48,9 @@ exports.register = async (req, res) => {
         const user = await newUser.save().catch(err => {
           console.log(err);
         });
-        /* await newProfile.save().catch(err => {
-          console.log(err);
-        }); */
         if (user) {
-          res.json(user);
+          res.locals.user = user;
+          next();
         }
       });
     });

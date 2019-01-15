@@ -15,7 +15,7 @@ export default class Login extends Component {
     return (
       <section>
         <PageHeader />
-        <LoginForm />
+        <LoginForm history={this.props.history} />
       </section>
     );
   }

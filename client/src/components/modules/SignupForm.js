@@ -40,7 +40,6 @@ export default class SignupForm extends Component {
       return;
     });
     if (res) {
-      console.log("user was created");
       this.setState({
         userCreated: true
       });

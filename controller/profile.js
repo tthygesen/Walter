@@ -57,7 +57,7 @@ exports.deleteProfile = async (req, res) => {
   res.json({ sucsses: "Account was delete" });
 };
 
-exports.createProfile = async (req, res) => {
+exports.updateProfile = async (req, res) => {
   const profileFields = {};
 
   profileFields.user = req.user.id;
@@ -85,9 +85,6 @@ exports.createProfile = async (req, res) => {
   if (req.body.linkedin) profileFields.socials.linkedin = req.body.linkedin;
   if (req.body.instagram) profileFields.socials.instagram = req.body.instagram;
 
-  //Picture
-  //if (req.files.picture) profileFields.picture = req.files.picture;
-
   //Create or update profile
   const profile = await Profile.findOne({ user: req.user.id }).catch(err => {
     console.log(err);
@@ -104,10 +101,47 @@ exports.createProfile = async (req, res) => {
     if (updatedProfile) res.json(updatedProfile);
   } else {
     //create
-    const newProfile = await new Profile(profileFields).save().catch(err => {
+    res.json({ msg: "user not found" });
+    /* const newProfile = await new Profile(profileFields).save().catch(err => {
       res.status(400).json({ error: err });
     });
-    if (newProfile) res.json(newProfile);
+    if (newProfile) res.json(newProfile); */
+  }
+};
+
+exports.createProfile = async (req, res) => {
+  const profileFields = {
+    contact: {},
+    living: {},
+    socials: {}
+  };
+  profileFields.user = res.locals.user._id;
+  profileFields.name = "";
+  profileFields.lastname = "";
+  profileFields.status = "";
+  profileFields.bio = "";
+
+  //Contact
+  profileFields.contact.email = "";
+  profileFields.contact.phone = "";
+  profileFields.contact.website = "";
+
+  //Living
+  profileFields.living.country = "";
+  profileFields.living.city = "";
+
+  //Socials
+  profileFields.socials.facebook = "";
+  profileFields.socials.twitter = "";
+  profileFields.socials.linkedin = "";
+  profileFields.socials.instagram = "";
+
+  const newProfile = await new Profile(profileFields).save().catch(err => {
+    res.status(400).json({ error: err });
+  });
+  if (newProfile) {
+    const user = res.locals.user;
+    res.json(user);
   }
 };
 
@@ -189,7 +223,7 @@ exports.deleteSkill = async (req, res) => {
     console.log(err);
   });
   if (profile) {
-    console.log(req.params);
+    //console.log(req.params);
     const skill = await profile.skills
       .map(item => item.id)
       .indexOf(req.params.skill_id);
@@ -230,7 +264,7 @@ exports.deleteExperience = async (req, res) => {
   if (profile) {
     const experience = await profile.workexperience
       .map(item => item.id)
-      .indexOf(req.params.edu_id);
+      .indexOf(req.params.exp_id);
 
     profile.workexperience.splice(experience, 1);
 
@@ -241,21 +275,38 @@ exports.deleteExperience = async (req, res) => {
   }
 };
 
-//Search profiles
-exports.searchProfiles = async (req, res) => {
+//Search names
+exports.searchName = async (req, res, next) => {
+  //If query is empty return all users
   const query = _.isEmpty(req.query.q);
   if (query) {
-    const profiles = await Profile.find().catch(err => {
+    let profiles = await Profile.find().catch(err => {
       console.log(err);
     });
     res.json(profiles);
     return;
   }
-  const profiles = await Profile.find({
+  //Find user
+  let profiles = await Profile.find({
     $text: {
       $search: req.query.q
     }
   }).catch(err => console.log(err));
+  if (_.isEmpty(profiles)) {
+    next();
+  } else {
+    res.json(profiles);
+  }
+};
+
+exports.searchSkills = async (req, res) => {
+  //Find user by skill
+  const query = req.query.q;
+  console.log(query);
+  const profiles = await Profile.find({
+    skills: { $all: { $elemMatch: { skill: `${query}` } } }
+  }).catch(err => console.log(err));
+
   if (_.isEmpty(profiles)) {
     res.json([]);
   } else {

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { setAuthHeader } from "../../utils/functions";
+import { Context } from "../Provider";
 import axios from "axios";
 import _ from "lodash";
 
@@ -15,6 +16,7 @@ import Bio from "./profile/Bio";
 import AddBtn from "./profile/Add";
 
 export default class Profile extends Component {
+  static contextType = Context;
   constructor(props) {
     super(props);
     this.state = {
@@ -34,24 +36,21 @@ export default class Profile extends Component {
   }
   getUserProfile = async () => {
     const res = await axios.get("/api/profile").catch(err => {
-      //console.log(err);
+      console.log(err);
     });
     if (res) {
-      //console.log(res.data);
+      console.log(res.data);
       const profile = res.data;
       profile.socials = _.isEmpty(profile.socials) ? {} : profile.socials;
       profile.living = _.isEmpty(profile.living) ? {} : profile.living;
       profile.contact = _.isEmpty(profile.contact) ? {} : profile.contact;
-      profile.educations = _.isEmpty(profile.educations)
-        ? []
-        : profile.educations;
-      const bio = profile.bio === "undefined" || undefined ? "" : profile.bio;
+
       this.setState({
-        photo: profile.photo,
         name: profile.name,
+        photo: profile.photo,
         lastname: profile.lastname,
         status: profile.status,
-        bio: bio,
+        bio: profile.bio,
         contact: profile.contact,
         socials: profile.socials,
         living: profile.living,
@@ -59,6 +58,7 @@ export default class Profile extends Component {
         experience: profile.workexperience,
         educations: profile.educations
       });
+      this.context.setProfile(this.state);
     }
   };
   async componentDidMount() {

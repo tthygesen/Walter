@@ -14,7 +14,8 @@ export default class AddExperience extends Component {
       startyear: "",
       endmonth: "",
       endyear: "",
-      current: false
+      current: false,
+      success: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -44,7 +45,16 @@ export default class AddExperience extends Component {
         console.log(err);
       });
     if (res) {
-      console.log(res.data);
+      //console.log(res.data);
+      this.setState({
+        what: "",
+        where: "",
+        startmonth: "",
+        startyear: "",
+        endmonth: "",
+        endyear: "",
+        success: true
+      });
     }
   };
 
@@ -60,6 +70,7 @@ export default class AddExperience extends Component {
   }
 
   render() {
+    const { success } = this.state;
     return (
       <React.Fragment>
         <section className="main-add">
@@ -68,6 +79,9 @@ export default class AddExperience extends Component {
           </article>
           <article className="form-wrapper">
             <form onSubmit={this.submit}>
+              {success && (
+                <p className="rf-success">success experience added</p>
+              )}
               <input
                 type="text"
                 name="what"
@@ -86,7 +100,7 @@ export default class AddExperience extends Component {
                 <input
                   type="checkbox"
                   name="current"
-                  defaultChecked={this.state.current}
+                  //defaultChecked={this.state.current}
                   value={this.state.current}
                   checked={this.state.current}
                   onChange={this.handleCheck}

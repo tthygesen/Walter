@@ -8,7 +8,8 @@ export default class AddSkill extends Component {
     super(...props);
     this.state = {
       skill: "",
-      years: ""
+      years: "",
+      success: false
     };
 
     this.submit = this.submit.bind(this);
@@ -25,12 +26,18 @@ export default class AddSkill extends Component {
       console.log(err);
     });
     if (res) {
-      console.log(res.data);
+      //console.log(res.data);
+      this.setState({
+        skill: "",
+        years: "",
+        success: true
+      });
     }
   };
   handleChange = event => {
     this.setState({
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
+      success: false
     });
   };
   componentWillMount() {
@@ -38,6 +45,7 @@ export default class AddSkill extends Component {
     setAuthHeader(token);
   }
   render() {
+    const { success } = this.state;
     return (
       <React.Fragment>
         <section className="main-add">
@@ -46,11 +54,12 @@ export default class AddSkill extends Component {
           </article>
           <article className="form-wrapper">
             <form onSubmit={this.submit}>
+              {success && <p className="rf-success">success skill added</p>}
               <input
                 type="text"
                 name="skill"
                 placeholder="Skill... baking, javascrip or self taught something "
-                value={this.state.name}
+                value={this.state.skill}
                 onChange={this.handleChange}
               />
               <input

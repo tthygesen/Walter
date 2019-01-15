@@ -45,7 +45,8 @@
       padding: 0 25px;
       input {
         border: none;
-        border-bottom: 1px solid white;
+        border-bottom: 1px solid;
+        border-color: white;
         background-color: rgba(255, 255, 255, 0) !important;
         padding: 5px 0;
         color: white;

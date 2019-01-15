@@ -4,16 +4,19 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { setAuthHeader } from "../../utils/functions";
 import { Context } from "../Provider";
+import _ from "lodash";
+
 //Style
 import "../../scss/pages/Home.scss";
 
 export default class Home extends Component {
   static contextType = Context;
   constructor(props) {
-    super();
+    super(props);
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      error: {}
     };
     this.onSubmit = this.onSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -47,9 +50,15 @@ export default class Home extends Component {
     }
   }
 
+  test = () => {
+    console.log("test");
+    return <p>test</p>;
+  };
+
   handleChange = event => {
     this.setState({
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
+      error: {}
     });
   };
   componentDidMount() {
@@ -57,12 +66,13 @@ export default class Home extends Component {
     this.context.setPage(page);
   }
   render() {
+    const { error } = this.state;
     return (
       <section className="home">
         <div className="left">
           <h1>Walter</h1>
           <p>
-            Connect in a more <br /> simpler way
+            Connect in a more <br /> simple way
           </p>
           <Link className="cta" to="/register">
             Sign up
@@ -70,6 +80,7 @@ export default class Home extends Component {
         </div>
         <div className="right">
           <form className="form" onSubmit={this.onSubmit}>
+            {!_.isEmpty(error) && <p className="error-msg">{error.error}</p>}
             <input
               type="email"
               value={this.state.email}

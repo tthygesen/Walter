@@ -10,7 +10,8 @@ const profileController = require("../controller/profile");
 router.post(
   "/api/register",
   userController.validateRegister,
-  userController.register
+  userController.register,
+  profileController.createProfile
 );
 //login
 router.post("/api/login", userController.validateLogin, userController.login);
@@ -27,8 +28,12 @@ router.post(
   passport.authenticate("jwt", { session: false }),
   profileController.uploade,
   profileController.rezise,
-  profileController.createProfile
+  profileController.updateProfile
 );
+
+/* //TEEEEST
+router.post("/api/test", profileController.updatedProfile); */
+
 router.delete(
   "/api/profile",
   passport.authenticate("jwt", { session: false }),
@@ -69,6 +74,10 @@ router.delete(
 );
 
 //Search
-router.get("/api/profiles", profileController.searchProfiles);
+router.get(
+  "/api/profiles",
+  profileController.searchName,
+  profileController.searchSkills
+);
 
 module.exports = router;

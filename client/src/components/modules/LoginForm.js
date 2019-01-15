@@ -3,7 +3,8 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { setAuthHeader } from "../../utils/functions";
 import { Context } from "../Provider";
-import { Redirect } from "react-router";
+import history from "../../history";
+
 //style
 import "../../scss/modules/Form.scss";
 
@@ -53,21 +54,16 @@ export default class LoginForm extends Component {
       if (token) {
         const decode = jwt_decode(token);
         //set user
-        this.context.setCurrentUser(decode);
+        await this.context.setCurrentUser(decode);
 
         //go to profile
-        this.setState({
-          gotIn: true
-        });
+        history.push("/profile");
       }
     }
   }
 
   render() {
-    const { error, gotIn } = this.state;
-    if (gotIn) {
-      return <Redirect to={"/profile/update"} />;
-    }
+    const { error } = this.state;
     return (
       <div className="form-wrapper">
         <form className="form" onSubmit={this.onSubmit}>

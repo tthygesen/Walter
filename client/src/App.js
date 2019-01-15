@@ -1,9 +1,13 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Router, Route, Switch } from "react-router-dom";
+import history from "./history";
+
+//style
 import "./App.scss";
 
 //Provider
 import Provider from "./components/Provider";
+
 //Components  - modules
 import Header from "./components/modules/Header";
 import Footer from "./components/modules/Footer";
@@ -20,12 +24,13 @@ import AddEducation from "./components/pages/profile/AddEducation";
 import AddSkill from "./components/pages/profile/AddSkill";
 import Candidates from "./components/pages/Candidates";
 import Account from "./components/pages/Account";
+import NotFound from "./components/pages/NotFound";
 
 class App extends Component {
   render() {
     return (
       <Provider>
-        <Router>
+        <Router history={history}>
           <div className="App">
             <Header />
             <Switch>
@@ -45,6 +50,7 @@ class App extends Component {
               <Route exact path="/profile/skill" component={AddSkill} />
               <Route exact path="/candidates" component={Candidates} />
               <Route exact path="/account/:acc_id" component={Account} />
+              <Route component={NotFound} />
             </Switch>
             <Footer />
           </div>

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../../Provider";
+import _ from "lodash";
 
 //images
 //import pp from "../../../assets/images/pp.jpg";
@@ -26,6 +27,10 @@ export default class SearchCard extends Component {
 
   componentDidMount() {
     const p = this.props.data;
+    console.log(this.props.data);
+    p.socials = _.isEmpty(p.socials) ? {} : p.socials;
+    p.living = _.isEmpty(p.living) ? {} : p.living;
+    p.contact = _.isEmpty(p.contact) ? {} : p.contact;
     const photo = p.photo === "undefined" || undefined ? "" : p.photo;
     const name = p.name === "undefined" || undefined ? "" : p.name;
     const lastname = p.lastname === "undefined" || undefined ? "" : p.lastname;

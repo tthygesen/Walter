@@ -6,8 +6,11 @@
   width: 100%;
   height: 100px;
   background-color: $petrol;
-  font-family: "Prata", sans-serif;
-  color: $bronze;
-  font-size: 25px;
-  font-weight: 500;
+  h1 {
+    font-size: 64px;
+    font-family: "Prata", sans-serif;
+    color: $bronze;
+    letter-spacing: 2.5px;
+    font-weight: 500;
+  }
 }

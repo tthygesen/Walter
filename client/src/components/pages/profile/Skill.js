@@ -19,9 +19,9 @@ export default class Skill extends Component {
       console.log(err);
     });
     if (res) {
-      //console.log(res);
-      //TODO
-      //make the page reload
+      if (window.confirm("Are you sure you wish to delete this item?")) {
+        window.location.reload();
+      }
     }
   };
   componentWillMount() {

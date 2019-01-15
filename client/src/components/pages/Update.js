@@ -49,6 +49,7 @@ export default class Update extends Component {
   };
   submit = async event => {
     event.preventDefault();
+    //console.log(this.state);
     //append data to a From data
     let formData = new FormData();
     formData.append("photo", this.state.photo);
@@ -70,7 +71,7 @@ export default class Update extends Component {
       //console.log(err);
     });
     if (newUser) {
-      //console.log(newUser.data);
+      console.log(newUser.data);
       this.setState({
         updatedProfile: true
       });
@@ -99,60 +100,59 @@ export default class Update extends Component {
     });
 
     if (res) {
-      let p = res.data;
-      p.socials = _.isEmpty(p.socials) ? {} : p.socials;
-      p.living = _.isEmpty(p.living) ? {} : p.living;
-      p.contact = _.isEmpty(p.contact) ? {} : p.contact;
+      const profile = res.data;
 
-      const photo = p.photo === "undefined" || undefined ? "" : p.photo;
-      const name = p.name === "undefined" || undefined ? "" : p.name;
-      const lastname =
-        p.lastname === "undefined" || undefined ? "" : p.lastname;
-      const status = p.status === "undefined" || undefined ? "" : p.status;
-      const bio = p.bio === "undefined" || undefined ? "" : p.bio;
       //Contact
-      const email =
-        p.contact.email === "undefined" || undefined ? "" : p.contact.email;
-      const phone =
-        p.contact.phone === "undefined" || undefined ? "" : p.contact.phone;
-      const website =
-        p.contact.website === "undefined" || undefined ? "" : p.contact.website;
-      //living
-      const country =
-        p.living.country === "undefined" || undefined ? "" : p.living.country;
-      const city =
-        p.living.city === "undefined" || undefined ? "" : p.living.city;
+      profile.contact = _.isEmpty(profile.contact) ? {} : profile.contact;
+      profile.contact.email = _.isUndefined(profile.contact.email)
+        ? ""
+        : profile.contact.email;
+      profile.contact.phone = _.isUndefined(profile.contact.phone)
+        ? ""
+        : profile.contact.phone;
+      profile.contact.website = _.isUndefined(profile.contact.website)
+        ? ""
+        : profile.contact.website;
+
+      //Living
+      profile.living = _.isEmpty(profile.living) ? {} : profile.living;
+      profile.living.country = _.isUndefined(profile.living.country)
+        ? ""
+        : profile.living.country;
+      profile.living.city = _.isUndefined(profile.living.city)
+        ? ""
+        : profile.living.city;
+
       //socials
-      const facebook =
-        p.socials.facebook === "undefined" || undefined
-          ? ""
-          : p.socials.facebook;
-      const twitter =
-        p.socials.twitter === "undefined" || undefined ? "" : p.socials.twitter;
-      const instagram =
-        p.socials.instagram === "undefined" || undefined
-          ? ""
-          : p.socials.instagram;
-      const linkedin =
-        p.socials.linkedin === "undefined" || undefined
-          ? ""
-          : p.socials.linkedin;
+      profile.socials = _.isEmpty(profile.socials) ? {} : profile.socials;
+      profile.socials.facebook = _.isUndefined(profile.socials.facebook)
+        ? ""
+        : profile.socials.facebook;
+      profile.socials.instagram = _.isUndefined(profile.socials.instagram)
+        ? ""
+        : profile.socials.instagram;
+      profile.socials.twitter = _.isUndefined(profile.socials.twitter)
+        ? ""
+        : profile.socials.twitter;
+      profile.socials.linkedin = _.isUndefined(profile.socials.linkedin)
+        ? ""
+        : profile.socials.linkedin;
 
       this.setState({
-        photo: photo,
-        name: name,
-        lastname: lastname,
-        status: status,
-        email: email,
-        phone: phone,
-        website: website,
-        country: country,
-        city: city,
-        facebook: facebook,
-        twitter: twitter,
-        linkedin: linkedin,
-        instagram: instagram,
-        bio: bio
+        name: res.data.name,
+        photo: res.data.photo,
+        lastname: res.data.lastname,
+        status: res.data.status,
+        email: res.data.contact.email,
+        phone: res.data.contact.phone,
+        website: res.data.contact.website,
+        country: res.data.living.country,
+        city: res.data.living.city,
+        facebook: res.data.socials.facebook,
+        twitter: res.data.socials.twitter,
+        linkedin: res.data.socials.linkedin,
+        instagram: res.data.socials.instagram,
+        bio: res.data.bio
       });
     }
   };
@@ -192,7 +192,6 @@ export default class Update extends Component {
               placeholder="First name"
               onChange={this.handleChange}
               value={this.state.name}
-              required
             />
             <input
               type="text"
@@ -200,7 +199,6 @@ export default class Update extends Component {
               placeholder="Last name"
               onChange={this.handleChange}
               value={this.state.lastname}
-              required
             />
             <input
               type="text"
@@ -208,7 +206,6 @@ export default class Update extends Component {
               placeholder="Status"
               onChange={this.handleChange}
               value={this.state.status}
-              required
             />
             <input
               type="email"
@@ -216,7 +213,6 @@ export default class Update extends Component {
               placeholder="Email"
               onChange={this.handleChange}
               value={this.state.email}
-              required
             />
             <input
               type="tel"
@@ -231,7 +227,6 @@ export default class Update extends Component {
               placeholder="Country"
               onChange={this.handleChange}
               value={this.state.country}
-              required
             />
             <input
               type="text"
@@ -239,7 +234,6 @@ export default class Update extends Component {
               placeholder="City"
               onChange={this.handleChange}
               value={this.state.city}
-              required
             />
             <input
               type="text"

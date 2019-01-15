@@ -14,7 +14,8 @@ export default class AddEducation extends Component {
       startyear: "",
       endmonth: "",
       endyear: "",
-      current: false
+      current: false,
+      success: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -44,7 +45,17 @@ export default class AddEducation extends Component {
         console.log(err);
       });
     if (res) {
-      console.log(res.data);
+      //console.log(res.data);
+      this.setState({
+        school: "",
+        country: "",
+        startmonth: "",
+        startyear: "",
+        endmonth: "",
+        endyear: "",
+        current: false,
+        success: true
+      });
     }
   };
 
@@ -60,6 +71,7 @@ export default class AddEducation extends Component {
   }
 
   render() {
+    const { success } = this.state;
     return (
       <React.Fragment>
         <section className="main-add">
@@ -68,25 +80,25 @@ export default class AddEducation extends Component {
           </article>
           <article className="form-wrapper">
             <form onSubmit={this.submit}>
+              {success && <p className="rf-success">success education added</p>}
               <input
                 type="text"
                 name="school"
                 onChange={this.handleChange}
-                value={this.state.what}
+                value={this.state.school}
                 placeholder="What Education"
               />
               <input
                 type="text"
                 name="country"
                 onChange={this.handleChange}
-                value={this.state.where}
+                value={this.state.country}
                 placeholder="Where"
               />
               <div className="current">
                 <input
                   type="checkbox"
                   name="current"
-                  defaultChecked={this.state.current}
                   value={this.state.current}
                   checked={this.state.current}
                   onChange={this.handleCheck}

@@ -1,9 +1,11 @@
 import React, { Component } from "react";
+import jwt_decode from "jwt-decode";
+import { setAuthHeader } from "../utils/functions";
 export const Context = React.createContext();
 
 export default class Provider extends Component {
   constructor(props) {
-    super();
+    super(props);
     this.state = {
       authenticated: false,
       user: {
@@ -12,11 +14,11 @@ export default class Provider extends Component {
       },
       page: undefined,
       account: "",
-      search: ""
+      search: "",
+      profile: {}
     };
   }
   setCurrentUser = decode => {
-    //console.log(decode);
     //set authenticated to true and populate the user state;
     this.setState({
       authenticated: true,
@@ -36,6 +38,7 @@ export default class Provider extends Component {
     this.setState({
       authenticated: false
     });
+    window.location.href = "/";
   };
   setPage = currentpage => {
     this.setState({
@@ -48,14 +51,21 @@ export default class Provider extends Component {
     });
   };
   checkAuth = () => {
-    const auth = localStorage.getItem("jwt");
-    if (auth) {
-      this.setState({
-        authenticated: true
-      });
-    } else {
-      this.logUserOut();
+    if (localStorage.jwt) {
+      const token = localStorage.jwt;
+      setAuthHeader(token);
+      const decode = jwt_decode(token);
+      const currentTime = Date.now() / 1000;
+      this.setCurrentUser(decode);
+      if (currentTime > decode.exp) {
+        this.logUserOut();
+      }
     }
+  };
+  setProfile = input => {
+    this.setState({
+      profile: input
+    });
   };
   componentWillMount() {
     this.checkAuth();
@@ -69,7 +79,8 @@ export default class Provider extends Component {
           logUserOut: this.logUserOut,
           setPage: this.setPage,
           logAccountId: this.logAccountId,
-          headerSeacrh: this.headerSeacrh
+          headerSeacrh: this.headerSeacrh,
+          setProfile: this.setProfile
         }}
       >
         {this.props.children}

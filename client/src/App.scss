@@ -30,3 +30,15 @@ button {
 a {
   text-decoration: none;
 }
+
+.error-msg {
+  color: red;
+}
+
+input.error {
+  border-color: red !important;
+}
+
+.rf-success {
+  color: green !important;
+}

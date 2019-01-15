@@ -1,0 +1,40 @@
+ p.socials = _.isEmpty(p.socials) ? {} : p.socials;
+      p.living = _.isEmpty(p.living) ? {} : p.living;
+      p.contact = _.isEmpty(p.contact) ? {} : p.contact;
+
+      const photo = p.photo === "undefined" || undefined ? "" : p.photo;
+      const name = p.name === "undefined" || undefined ? "" : p.name;
+      const lastname =
+        p.lastname === "undefined" || undefined ? "" : p.lastname;
+      const status = p.status === "undefined" || undefined ? "" : p.status;
+      const bio = p.bio === "undefined" || undefined ? "" : p.bio;
+       /* let p = res.data;
+     
+      //Contact
+      const email =
+        p.contact.email === "undefined" || undefined ? "" : p.contact.email;
+      const phone =
+        p.contact.phone === "undefined" || undefined ? "" : p.contact.phone;
+      const website =
+        p.contact.website === "undefined" || undefined ? "" : p.contact.website;
+      //living
+      const country =
+        p.living.country === "undefined" || undefined ? "" : p.living.country;
+      const city =
+        p.living.city === "undefined" || undefined ? "" : p.living.city;
+      //socials
+      const facebook =
+        p.socials.facebook === "undefined" || undefined
+          ? ""
+          : p.socials.facebook;
+      const twitter =
+        p.socials.twitter === "undefined" || undefined ? "" : p.socials.twitter;
+      const instagram =
+        p.socials.instagram === "undefined" || undefined
+          ? ""
+          : p.socials.instagram;
+      const linkedin =
+        p.socials.linkedin === "undefined" || undefined
+          ? ""
+          : p.socials.linkedin;
+/ */

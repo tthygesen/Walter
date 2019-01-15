@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../Provider";
+import history from "../../history";
 
 //style
 import "../../scss/modules/Header.scss";
@@ -10,6 +11,7 @@ import logo from "../../assets/images/main-logo.png";
 import search_icon from "../../assets/images/search.svg";
 
 export default class Header extends Component {
+  static contextType = Context;
   constructor(...props) {
     super(...props);
     this.handleChange = this.handleChange.bind(this);
@@ -17,7 +19,10 @@ export default class Header extends Component {
   handleChange = event => {
     this.context.headerSeacrh(event.target.value);
   };
-  static contextType = Context;
+  submitSearch = event => {
+    event.preventDefault();
+    history.push("/candidates");
+  };
   render() {
     let userAuth = this.context.state.authenticated;
     //logged in nav
@@ -50,18 +55,17 @@ export default class Header extends Component {
           <Link to="/">
             <img className="header-logo" src={logo} alt="company-logo" />
           </Link>
-          <form>
+          <form onSubmit={this.submitSearch}>
             <input
               className="header-search"
               type="search"
               name="search"
               placeholder="Search"
+              value={this.context.state.search}
               onChange={this.handleChange}
             />
-            <button type="button">
-              <Link to={"/candidates"}>
-                <img src={search_icon} alt="" />
-              </Link>
+            <button type="submit">
+              <img src={search_icon} alt="" />
             </button>
           </form>
         </div>
